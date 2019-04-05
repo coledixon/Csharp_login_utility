@@ -1,6 +1,6 @@
 ﻿namespace LoginApp
 {
-    partial class Form1
+    partial class Login_App
     {
         /// <summary>
         /// Required designer variable.
