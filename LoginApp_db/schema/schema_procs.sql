@@ -31,13 +31,14 @@ IF OBJECT_ID('dbo.spuserLogin') is not null DROP PROC [dbo].[spuserLogin]
 GO
 
 	CREATE PROC [dbo].[spuserLogin]
-	@user_id varchar(50) = NULL,
-	@user_pass varchar(max) = NULL,
+	@user_id varchar(50),
+	@user_pass varchar(max),
+	@user_pass_hash varchar(max),
 	@retval int = 0 OUTPUT,
 	@errmess varchar(250) = NULL OUTPUT
 	AS
 
-	-- SHA() password hashing??
+	-- HASHBYTES() pw salt in SQLa
 GO
 
 -----
@@ -47,13 +48,14 @@ IF OBJECT_ID('dbo.spuserLogout') is not null DROP PROC [dbo].[spuserLogout]
 GO
 
 	CREATE PROC [dbo].[spuserLogout]
-	@user_id varchar(50) = NULL,
+	@user_id varchar(50),
 	@user_pass varchar(max) = NULL,
+	@user_hash varchar(max) = NULL,
 	@retval int = 0 OUTPUT,
 	@errmess varchar(250) = NULL OUTPUT
 	AS
 
-	-- SHA() password hashing??
+	-- HASHBYTES() pw salt in SQL
 
 GO
 

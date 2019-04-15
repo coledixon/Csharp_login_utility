@@ -33,7 +33,25 @@ BEGIN
 			ADD CONSTRAINT def_createDate DEFAULT (GETDATE()) FOR [create_date]
 END
 
+
+IF OBJECT_ID('dbo.pass_main') is null
+BEGIN
+	-- master user / pass table
+	CREATE TABLE pass_main (
+			[user_key] int, 
+			[pass_hash] varchar(max) not null, -- hashed in C# app
+			[pass_salt] varchar(max) not null, -- HASHBYTES()
+			CONSTRAINT fk_userPass FOREIGN KEY (user_key) REFERENCES user_main(user_key)
+	)
+
+		CREATE UNIQUE NONCLUSTERED INDEX natKey_passMain ON pass_main (
+			[user_key]
+		)
+
+END
+
 GO
+
 
 /* --- AUDIT TABLES --- */
 
