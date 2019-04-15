@@ -16,5 +16,10 @@ namespace LoginApp
         {
             InitializeComponent();
         }
+
+        public void InstantiateObjects()
+        {
+            // instantiate refs to external controller(s) / model(s)
+        }
     }
 }
