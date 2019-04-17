@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LoginApp.Controllers;
+using LoginApp.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,14 +14,25 @@ namespace LoginApp
 {
     public partial class Login_App : Form
     {
+        // ref to external controller(s) / model(s)
+        private loginData data;
+        private loginExt ext;
+        private loginHash hash;
+        private loginProps props;
+
         public Login_App()
         {
             InitializeComponent();
+            InstantiateObjects();
         }
 
+        // INSTANTIATE CLASS(ES)
         public void InstantiateObjects()
         {
-            // instantiate refs to external controller(s) / model(s)
+            data = new loginData();
+            ext = new loginExt();
+            hash = new loginHash();
+            props = new loginProps();
         }
     }
 }

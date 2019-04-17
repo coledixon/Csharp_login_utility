@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LoginApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,7 +14,7 @@ namespace LoginApp.Controllers
     class loginData
     {
         // INSTANTIATE CLASS(ES)
-
+        loginProps prop = new loginProps();
 
         // data conn
         static string dataconnstrng = ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString;

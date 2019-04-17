@@ -49,6 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\loginData.cs" />
+    <Compile Include="Controllers\loginExt.cs" />
+    <Compile Include="Controllers\loginHash.cs" />
     <Compile Include="Login_App.cs">
       <SubType>Form</SubType>
     </Compile>
