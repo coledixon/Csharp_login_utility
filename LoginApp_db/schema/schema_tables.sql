@@ -21,7 +21,6 @@ BEGIN
 			[user_id] varchar(50) not null,
 			[first_name] varchar(15) not null,
 			[last_name] varchar(20) not null,
-			[pass_hash] varchar(max) not null, 
 			[create_date] datetime not null,
 		PRIMARY KEY NONCLUSTERED 
 		(
