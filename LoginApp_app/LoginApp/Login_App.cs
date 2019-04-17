@@ -23,16 +23,44 @@ namespace LoginApp
         public Login_App()
         {
             InitializeComponent();
+            // REMOVED UNTIL CLASSES BUILT OUT
             InstantiateObjects();
         }
 
         // INSTANTIATE CLASS(ES)
         public void InstantiateObjects()
         {
-            data = new loginData();
+            //data = new loginData();
             ext = new loginExt();
-            hash = new loginHash();
-            props = new loginProps();
+            //hash = new loginHash();
+            //props = new loginProps();
         }
+
+        #region lost focus events
+        private void txtUsername_LostFocus(object sender, EventArgs e)
+        {
+            // this event will validate the user exists in SQL
+        }
+
+        private void txtPassword_LostFocus(object sender, EventArgs e)
+        {
+            bool succ = ext.valPasswordReqs(txtPassword.Text);
+        }
+        #endregion
+
+        #region button events
+        private void btnAdmin_Click(object sender, EventArgs e)
+        {
+            // prompt the admin console
+                // admin console = create / update / delete || users / pw
+        }
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            // validate both fields are filled in
+            // fire login logic
+                // hash password
+        }
+        #endregion
     }
 }
