@@ -30,19 +30,19 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login_App));
             this.grpCreds = new System.Windows.Forms.GroupBox();
-            this.txtUsername = new System.Windows.Forms.TextBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
+            this.txtUsername = new System.Windows.Forms.TextBox();
+            this.passIcon = new System.Windows.Forms.PictureBox();
+            this.userIcon = new System.Windows.Forms.PictureBox();
             this.grpStatus = new System.Windows.Forms.GroupBox();
             this.lblStatus = new System.Windows.Forms.Label();
             this.btnAdmin = new System.Windows.Forms.Button();
             this.btnLogout = new System.Windows.Forms.Button();
             this.btnLogin = new System.Windows.Forms.Button();
-            this.passIcon = new System.Windows.Forms.PictureBox();
-            this.userIcon = new System.Windows.Forms.PictureBox();
             this.grpCreds.SuspendLayout();
-            this.grpStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.passIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userIcon)).BeginInit();
+            this.grpStatus.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpCreds
@@ -59,6 +59,13 @@
             this.grpCreds.TabStop = false;
             this.grpCreds.Text = "Login Credentials";
             // 
+            // txtPassword
+            // 
+            this.txtPassword.Location = new System.Drawing.Point(68, 110);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.Size = new System.Drawing.Size(282, 22);
+            this.txtPassword.TabIndex = 3;
+            // 
             // txtUsername
             // 
             this.txtUsername.BackColor = System.Drawing.SystemColors.Window;
@@ -67,12 +74,26 @@
             this.txtUsername.Size = new System.Drawing.Size(282, 22);
             this.txtUsername.TabIndex = 2;
             // 
-            // txtPassword
+            // passIcon
             // 
-            this.txtPassword.Location = new System.Drawing.Point(68, 110);
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(282, 22);
-            this.txtPassword.TabIndex = 3;
+            this.passIcon.Image = global::LoginApp.Properties.Resources.password;
+            this.passIcon.Location = new System.Drawing.Point(7, 98);
+            this.passIcon.Name = "passIcon";
+            this.passIcon.Size = new System.Drawing.Size(41, 41);
+            this.passIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.passIcon.TabIndex = 1;
+            this.passIcon.TabStop = false;
+            // 
+            // userIcon
+            // 
+            this.userIcon.Image = global::LoginApp.Properties.Resources.user;
+            this.userIcon.InitialImage = global::LoginApp.Properties.Resources.user;
+            this.userIcon.Location = new System.Drawing.Point(6, 36);
+            this.userIcon.Name = "userIcon";
+            this.userIcon.Size = new System.Drawing.Size(41, 41);
+            this.userIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.userIcon.TabIndex = 0;
+            this.userIcon.TabStop = false;
             // 
             // grpStatus
             // 
@@ -100,9 +121,9 @@
             this.btnAdmin.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.btnAdmin.BackgroundImage = global::LoginApp.Properties.Resources.admin;
             this.btnAdmin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnAdmin.Location = new System.Drawing.Point(328, 189);
+            this.btnAdmin.Location = new System.Drawing.Point(337, 188);
             this.btnAdmin.Name = "btnAdmin";
-            this.btnAdmin.Size = new System.Drawing.Size(58, 45);
+            this.btnAdmin.Size = new System.Drawing.Size(49, 45);
             this.btnAdmin.TabIndex = 4;
             this.btnAdmin.UseVisualStyleBackColor = false;
             this.btnAdmin.Visible = false;
@@ -130,27 +151,6 @@
             this.btnLogin.TabIndex = 1;
             this.btnLogin.UseVisualStyleBackColor = false;
             // 
-            // passIcon
-            // 
-            this.passIcon.Image = global::LoginApp.Properties.Resources.password;
-            this.passIcon.Location = new System.Drawing.Point(7, 98);
-            this.passIcon.Name = "passIcon";
-            this.passIcon.Size = new System.Drawing.Size(41, 41);
-            this.passIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.passIcon.TabIndex = 1;
-            this.passIcon.TabStop = false;
-            // 
-            // userIcon
-            // 
-            this.userIcon.Image = global::LoginApp.Properties.Resources.user;
-            this.userIcon.InitialImage = global::LoginApp.Properties.Resources.user;
-            this.userIcon.Location = new System.Drawing.Point(6, 36);
-            this.userIcon.Name = "userIcon";
-            this.userIcon.Size = new System.Drawing.Size(41, 41);
-            this.userIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.userIcon.TabIndex = 0;
-            this.userIcon.TabStop = false;
-            // 
             // Login_App
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -169,10 +169,10 @@
             this.Text = "Login Utility";
             this.grpCreds.ResumeLayout(false);
             this.grpCreds.PerformLayout();
-            this.grpStatus.ResumeLayout(false);
-            this.grpStatus.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.passIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.userIcon)).EndInit();
+            this.grpStatus.ResumeLayout(false);
+            this.grpStatus.PerformLayout();
             this.ResumeLayout(false);
 
         }
