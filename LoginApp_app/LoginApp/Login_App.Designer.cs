@@ -62,17 +62,22 @@
             // txtPassword
             // 
             this.txtPassword.Location = new System.Drawing.Point(68, 110);
+            this.txtPassword.MaxLength = 20;
             this.txtPassword.Name = "txtPassword";
+            this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(282, 22);
             this.txtPassword.TabIndex = 3;
+            this.txtPassword.Leave += new System.EventHandler(this.txtPassword_LostFocus);
             // 
             // txtUsername
             // 
             this.txtUsername.BackColor = System.Drawing.SystemColors.Window;
             this.txtUsername.Location = new System.Drawing.Point(68, 48);
+            this.txtUsername.MaxLength = 20;
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(282, 22);
             this.txtUsername.TabIndex = 2;
+            this.txtUsername.Leave += new System.EventHandler(this.txtUsername_LostFocus);
             // 
             // passIcon
             // 
@@ -127,6 +132,7 @@
             this.btnAdmin.TabIndex = 4;
             this.btnAdmin.UseVisualStyleBackColor = false;
             this.btnAdmin.Visible = false;
+            this.btnAdmin.Click += new System.EventHandler(this.btnAdmin_Click);
             // 
             // btnLogout
             // 
@@ -150,6 +156,7 @@
             this.btnLogin.Size = new System.Drawing.Size(58, 45);
             this.btnLogin.TabIndex = 1;
             this.btnLogin.UseVisualStyleBackColor = false;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
             // Login_App
             // 
