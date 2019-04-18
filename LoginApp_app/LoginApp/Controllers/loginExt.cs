@@ -17,11 +17,13 @@ namespace LoginApp.Controllers
     class loginExt
     {
         // main external method class
+        public char togglePassChar(char p)
+        {
+            return p = (p == '*') ? '\0' : '*';
+        }
+
         public bool valPasswordReqs(string pw)
         {
-
-            // DEBUG: IsSymbol not accounting for all symbols
-
             bool pass = true; // assume success
 
             // ensure password meets criteria
@@ -35,8 +37,8 @@ namespace LoginApp.Controllers
 
         }
 
-        // HELPER METHODS
         #region helper methods
+        // HELPER METHODS
         private static bool parseNumeric(string _pw, bool _pass)
         {
             if (!_pw.Any(Char.IsDigit)) { _pass = false; }

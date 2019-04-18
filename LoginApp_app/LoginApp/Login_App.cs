@@ -23,8 +23,8 @@ namespace LoginApp
         public Login_App()
         {
             InitializeComponent();
-            // REMOVED UNTIL CLASSES BUILT OUT
             InstantiateObjects();
+            // REMOVED: checkRecsExist();
         }
 
         // INSTANTIATE CLASS(ES)
@@ -36,15 +36,16 @@ namespace LoginApp
             //props = new loginProps();
         }
 
+        private void checkRecsExist()
+        {
+            // run after InstantiateObjects()
+            // dynamically query SQL || if no records in user_main, all text fields ReadOnly
+        }
+
         #region focus events
         private void txtUsername_LostFocus(object sender, EventArgs e)
         {
             // this event will validate the user exists in SQL
-        }
-
-        private void txtPassword_LostFocus(object sender, EventArgs e)
-        {
-            bool succ = ext.valPasswordReqs(txtPassword.Text);
         }
         #endregion
 
@@ -64,6 +65,15 @@ namespace LoginApp
             // fire login logic
                 // hash password
         }
+
+        private void btnShowPass_Click(object sender, EventArgs e)
+        {
+            if (txtPassword.Text.Length > 0)
+            {
+                txtPassword.PasswordChar = ext.togglePassChar(txtPassword.PasswordChar);
+            }
+        }
         #endregion
+
     }
 }

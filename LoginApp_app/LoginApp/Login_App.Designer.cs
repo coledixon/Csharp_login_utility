@@ -39,6 +39,7 @@
             this.btnAdmin = new System.Windows.Forms.Button();
             this.btnLogout = new System.Windows.Forms.Button();
             this.btnLogin = new System.Windows.Forms.Button();
+            this.btnShowPass = new System.Windows.Forms.Button();
             this.grpCreds.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.passIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userIcon)).BeginInit();
@@ -48,6 +49,7 @@
             // grpCreds
             // 
             this.grpCreds.BackColor = System.Drawing.SystemColors.Control;
+            this.grpCreds.Controls.Add(this.btnShowPass);
             this.grpCreds.Controls.Add(this.txtPassword);
             this.grpCreds.Controls.Add(this.txtUsername);
             this.grpCreds.Controls.Add(this.passIcon);
@@ -65,9 +67,8 @@
             this.txtPassword.MaxLength = 20;
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(282, 22);
+            this.txtPassword.Size = new System.Drawing.Size(269, 22);
             this.txtPassword.TabIndex = 3;
-            this.txtPassword.Leave += new System.EventHandler(this.txtPassword_LostFocus);
             // 
             // txtUsername
             // 
@@ -75,7 +76,7 @@
             this.txtUsername.Location = new System.Drawing.Point(68, 48);
             this.txtUsername.MaxLength = 20;
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(282, 22);
+            this.txtUsername.Size = new System.Drawing.Size(269, 22);
             this.txtUsername.TabIndex = 2;
             this.txtUsername.Leave += new System.EventHandler(this.txtUsername_LostFocus);
             // 
@@ -157,6 +158,18 @@
             this.btnLogin.UseVisualStyleBackColor = false;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
+            // btnShowPass
+            // 
+            this.btnShowPass.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.btnShowPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 4F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnShowPass.Location = new System.Drawing.Point(343, 109);
+            this.btnShowPass.Name = "btnShowPass";
+            this.btnShowPass.Size = new System.Drawing.Size(30, 23);
+            this.btnShowPass.TabIndex = 10;
+            this.btnShowPass.Text = "show";
+            this.btnShowPass.UseVisualStyleBackColor = false;
+            this.btnShowPass.Click += new System.EventHandler(this.btnShowPass_Click);
+            // 
             // Login_App
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -195,6 +208,7 @@
         private System.Windows.Forms.GroupBox grpStatus;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Button btnAdmin;
+        private System.Windows.Forms.Button btnShowPass;
     }
 }
 

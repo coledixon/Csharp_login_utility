@@ -14,6 +14,7 @@ namespace LoginApp
 {
     public partial class Admin : Form
     {
+        bool showpass = false;
         // ref to external controller(s) / model(s)
         private loginData data;
         private loginExt ext;
@@ -54,15 +55,22 @@ namespace LoginApp
         private void btnShowPass_Click(object sender, EventArgs e)
         {
             // dynamically remove PassChar prop from txtPassword
+            if (txtPassword.Text.Length > 0)
+            {
+                txtPassword.PasswordChar = ext.togglePassChar(txtPassword.PasswordChar);
+            }
         }
         #endregion
 
         #region focus events
-        private void tstUserName_LostFocus(object sender, EventArgs e)
+        private void txtUserName_LostFocus(object sender, EventArgs e)
         {
             // dynamically query SQL to validate username does not exist
         }
+        private void txtPassword_LostFocus(object sender, EventArgs e)
+        {
+            // ext.valPasswordReqs(txtPassword.Text);
+        }
         #endregion
-
     }
 }

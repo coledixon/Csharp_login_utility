@@ -30,19 +30,19 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Admin));
             this.grpUser = new System.Windows.Forms.GroupBox();
-            this.lblFName = new System.Windows.Forms.Label();
-            this.lblLName = new System.Windows.Forms.Label();
-            this.txtFName = new System.Windows.Forms.TextBox();
-            this.txtLName = new System.Windows.Forms.TextBox();
-            this.lblUserName = new System.Windows.Forms.Label();
-            this.lblPassword = new System.Windows.Forms.Label();
-            this.txtUserName = new System.Windows.Forms.TextBox();
-            this.txtPassword = new System.Windows.Forms.TextBox();
             this.btnShowPass = new System.Windows.Forms.Button();
+            this.txtPassword = new System.Windows.Forms.TextBox();
+            this.txtUserName = new System.Windows.Forms.TextBox();
+            this.lblPassword = new System.Windows.Forms.Label();
+            this.lblUserName = new System.Windows.Forms.Label();
+            this.txtLName = new System.Windows.Forms.TextBox();
+            this.txtFName = new System.Windows.Forms.TextBox();
+            this.lblLName = new System.Windows.Forms.Label();
+            this.lblFName = new System.Windows.Forms.Label();
+            this.imgUser = new System.Windows.Forms.PictureBox();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.imgUser = new System.Windows.Forms.PictureBox();
             this.grpUser.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgUser)).BeginInit();
             this.SuspendLayout();
@@ -66,76 +66,6 @@
             this.grpUser.TabStop = false;
             this.grpUser.Text = "User Info";
             // 
-            // lblFName
-            // 
-            this.lblFName.AutoSize = true;
-            this.lblFName.Location = new System.Drawing.Point(62, 30);
-            this.lblFName.Name = "lblFName";
-            this.lblFName.Size = new System.Drawing.Size(76, 17);
-            this.lblFName.TabIndex = 1;
-            this.lblFName.Text = "First Name";
-            // 
-            // lblLName
-            // 
-            this.lblLName.AutoSize = true;
-            this.lblLName.Location = new System.Drawing.Point(62, 51);
-            this.lblLName.Name = "lblLName";
-            this.lblLName.Size = new System.Drawing.Size(76, 17);
-            this.lblLName.TabIndex = 2;
-            this.lblLName.Text = "Last Name";
-            // 
-            // txtFName
-            // 
-            this.txtFName.Location = new System.Drawing.Point(145, 30);
-            this.txtFName.MaxLength = 15;
-            this.txtFName.Name = "txtFName";
-            this.txtFName.Size = new System.Drawing.Size(170, 22);
-            this.txtFName.TabIndex = 3;
-            // 
-            // txtLName
-            // 
-            this.txtLName.Location = new System.Drawing.Point(145, 51);
-            this.txtLName.MaxLength = 20;
-            this.txtLName.Name = "txtLName";
-            this.txtLName.Size = new System.Drawing.Size(170, 22);
-            this.txtLName.TabIndex = 4;
-            // 
-            // lblUserName
-            // 
-            this.lblUserName.AutoSize = true;
-            this.lblUserName.Location = new System.Drawing.Point(15, 89);
-            this.lblUserName.Name = "lblUserName";
-            this.lblUserName.Size = new System.Drawing.Size(79, 17);
-            this.lblUserName.TabIndex = 5;
-            this.lblUserName.Text = "User Name";
-            // 
-            // lblPassword
-            // 
-            this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(15, 116);
-            this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(69, 17);
-            this.lblPassword.TabIndex = 6;
-            this.lblPassword.Text = "Password";
-            // 
-            // txtUserName
-            // 
-            this.txtUserName.Location = new System.Drawing.Point(100, 89);
-            this.txtUserName.MaxLength = 20;
-            this.txtUserName.Name = "txtUserName";
-            this.txtUserName.Size = new System.Drawing.Size(215, 22);
-            this.txtUserName.TabIndex = 7;
-            this.txtUserName.Leave += new System.EventHandler(this.tstUserName_LostFocus);
-            // 
-            // txtPassword
-            // 
-            this.txtPassword.Location = new System.Drawing.Point(100, 117);
-            this.txtPassword.MaxLength = 20;
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(215, 22);
-            this.txtPassword.TabIndex = 8;
-            // 
             // btnShowPass
             // 
             this.btnShowPass.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
@@ -147,6 +77,87 @@
             this.btnShowPass.Text = "show";
             this.btnShowPass.UseVisualStyleBackColor = false;
             this.btnShowPass.Click += new System.EventHandler(this.btnShowPass_Click);
+            // 
+            // txtPassword
+            // 
+            this.txtPassword.Location = new System.Drawing.Point(100, 117);
+            this.txtPassword.MaxLength = 20;
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.PasswordChar = '*';
+            this.txtPassword.Size = new System.Drawing.Size(215, 22);
+            this.txtPassword.TabIndex = 8;
+            this.txtPassword.Leave += new System.EventHandler(this.txtPassword_LostFocus);
+            // 
+            // txtUserName
+            // 
+            this.txtUserName.Location = new System.Drawing.Point(100, 89);
+            this.txtUserName.MaxLength = 20;
+            this.txtUserName.Name = "txtUserName";
+            this.txtUserName.Size = new System.Drawing.Size(215, 22);
+            this.txtUserName.TabIndex = 7;
+            this.txtUserName.Leave += new System.EventHandler(this.txtUserName_LostFocus);
+            // 
+            // lblPassword
+            // 
+            this.lblPassword.AutoSize = true;
+            this.lblPassword.Location = new System.Drawing.Point(15, 116);
+            this.lblPassword.Name = "lblPassword";
+            this.lblPassword.Size = new System.Drawing.Size(69, 17);
+            this.lblPassword.TabIndex = 6;
+            this.lblPassword.Text = "Password";
+            // 
+            // lblUserName
+            // 
+            this.lblUserName.AutoSize = true;
+            this.lblUserName.Location = new System.Drawing.Point(15, 89);
+            this.lblUserName.Name = "lblUserName";
+            this.lblUserName.Size = new System.Drawing.Size(79, 17);
+            this.lblUserName.TabIndex = 5;
+            this.lblUserName.Text = "User Name";
+            // 
+            // txtLName
+            // 
+            this.txtLName.Location = new System.Drawing.Point(145, 51);
+            this.txtLName.MaxLength = 20;
+            this.txtLName.Name = "txtLName";
+            this.txtLName.Size = new System.Drawing.Size(170, 22);
+            this.txtLName.TabIndex = 4;
+            // 
+            // txtFName
+            // 
+            this.txtFName.Location = new System.Drawing.Point(145, 30);
+            this.txtFName.MaxLength = 15;
+            this.txtFName.Name = "txtFName";
+            this.txtFName.Size = new System.Drawing.Size(170, 22);
+            this.txtFName.TabIndex = 3;
+            // 
+            // lblLName
+            // 
+            this.lblLName.AutoSize = true;
+            this.lblLName.Location = new System.Drawing.Point(62, 51);
+            this.lblLName.Name = "lblLName";
+            this.lblLName.Size = new System.Drawing.Size(76, 17);
+            this.lblLName.TabIndex = 2;
+            this.lblLName.Text = "Last Name";
+            // 
+            // lblFName
+            // 
+            this.lblFName.AutoSize = true;
+            this.lblFName.Location = new System.Drawing.Point(62, 30);
+            this.lblFName.Name = "lblFName";
+            this.lblFName.Size = new System.Drawing.Size(76, 17);
+            this.lblFName.TabIndex = 1;
+            this.lblFName.Text = "First Name";
+            // 
+            // imgUser
+            // 
+            this.imgUser.BackgroundImage = global::LoginApp.Properties.Resources.user;
+            this.imgUser.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.imgUser.Location = new System.Drawing.Point(15, 30);
+            this.imgUser.Name = "imgUser";
+            this.imgUser.Size = new System.Drawing.Size(40, 38);
+            this.imgUser.TabIndex = 0;
+            this.imgUser.TabStop = false;
             // 
             // btnDelete
             // 
@@ -180,16 +191,6 @@
             this.btnAdd.TabIndex = 1;
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // imgUser
-            // 
-            this.imgUser.BackgroundImage = global::LoginApp.Properties.Resources.user;
-            this.imgUser.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.imgUser.Location = new System.Drawing.Point(15, 30);
-            this.imgUser.Name = "imgUser";
-            this.imgUser.Size = new System.Drawing.Size(40, 38);
-            this.imgUser.TabIndex = 0;
-            this.imgUser.TabStop = false;
             // 
             // Admin
             // 
