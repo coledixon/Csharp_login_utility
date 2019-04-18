@@ -125,6 +125,7 @@
             this.txtUserName.Name = "txtUserName";
             this.txtUserName.Size = new System.Drawing.Size(215, 22);
             this.txtUserName.TabIndex = 7;
+            this.txtUserName.Leave += new System.EventHandler(this.tstUserName_LostFocus);
             // 
             // txtPassword
             // 
@@ -145,6 +146,7 @@
             this.btnShowPass.TabIndex = 9;
             this.btnShowPass.Text = "show";
             this.btnShowPass.UseVisualStyleBackColor = false;
+            this.btnShowPass.Click += new System.EventHandler(this.btnShowPass_Click);
             // 
             // btnDelete
             // 
@@ -155,6 +157,7 @@
             this.btnDelete.Size = new System.Drawing.Size(45, 45);
             this.btnDelete.TabIndex = 3;
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnUpdate
             // 
@@ -165,6 +168,7 @@
             this.btnUpdate.Size = new System.Drawing.Size(45, 45);
             this.btnUpdate.TabIndex = 2;
             this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnAdd
             // 
@@ -175,6 +179,7 @@
             this.btnAdd.Size = new System.Drawing.Size(45, 45);
             this.btnAdd.TabIndex = 1;
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // imgUser
             // 

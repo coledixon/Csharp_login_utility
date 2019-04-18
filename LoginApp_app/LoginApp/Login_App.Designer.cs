@@ -131,7 +131,6 @@
             this.btnAdmin.Size = new System.Drawing.Size(49, 45);
             this.btnAdmin.TabIndex = 4;
             this.btnAdmin.UseVisualStyleBackColor = false;
-            this.btnAdmin.Visible = false;
             this.btnAdmin.Click += new System.EventHandler(this.btnAdmin_Click);
             // 
             // btnLogout

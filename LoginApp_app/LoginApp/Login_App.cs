@@ -36,7 +36,7 @@ namespace LoginApp
             //props = new loginProps();
         }
 
-        #region lost focus events
+        #region focus events
         private void txtUsername_LostFocus(object sender, EventArgs e)
         {
             // this event will validate the user exists in SQL
@@ -51,8 +51,11 @@ namespace LoginApp
         #region button events
         private void btnAdmin_Click(object sender, EventArgs e)
         {
-            // prompt the admin console
-                // admin console = create / update / delete || users / pw
+            // TO DO: if username entered, load user info in admin form
+
+            Admin frm = new Admin(); // call admin.cs
+            frm.Show();
+
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
