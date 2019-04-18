@@ -2,10 +2,15 @@
 using LoginApp.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Text.RegularExpressions;
+
 
 namespace LoginApp.Controllers
 {
@@ -17,31 +22,47 @@ namespace LoginApp.Controllers
 
             // DEBUG: IsSymbol not accounting for all symbols
 
-            bool succ = true; // assume success
+            bool pass = true; // assume success
 
-            if (!pw.Any(Char.IsDigit)) // val numeric firsta
-            {
-                // throw error stating "pw must contain numeric value"
-                succ = false;
-                if (!pw.Any(Char.IsSymbol))
-                {
-                    succ = false;
-                    // throw error stating "pw must contain at least one symbol"
-                }
-            }
-            else if (!pw.Any(Char.IsSymbol)) // reverse val order
-            {
-                // throw error stating "pw must contain at least one symbol"
-                succ = false;
-                if (!pw.Any(Char.IsDigit))
-                {
-                    succ = false;
-                    // throw error stating "pw must contain numeric value"
-                }
-            }
+            // ensure password meet criteria
+            pass = parseNumeric(pw, pass);
+            if (!pass) { MessageBox.Show("password must be alpha-numeric"); return pass; }
 
-            return succ;
+            pass = parseSpecialChar(pw, pass);
+            if (!pass) { MessageBox.Show("password must contain at least one (1) special character"); return pass; }
+
+            return pass;
 
         }
+
+        // HELPER METHODS
+        private static bool parseNumeric(string _pw, bool _pass)
+        {
+            if (!_pw.Any(Char.IsDigit)) { _pass = false; }
+
+            return _pass;
+        }
+
+        private static bool parseSpecialChar(string _pw, bool _pass)
+        {
+            var regex = new Regex("^[a-zA-Z0-9_]*$"); // regex for special chars
+
+            if (regex.IsMatch(_pw)) { _pass = false; }
+
+            return _pass;
+        }
+
+        #region notes on regex
+        // ^ : start of string
+        // [ : beginning of character group
+        // a - z : any lowercase letter
+        // A - Z : any uppercase letter
+        // 0 - 9 : any digit
+        // _ : underscore
+        // ] : end of character group
+        // * : zero or more of the given characters
+        // $ : end of string
+
+        #endregion
     }
 }
