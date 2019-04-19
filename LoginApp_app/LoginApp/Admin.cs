@@ -69,7 +69,8 @@ namespace LoginApp
         }
         private void txtPassword_LostFocus(object sender, EventArgs e)
         {
-            // ext.valPasswordReqs(txtPassword.Text);
+            // DEBUG: firing before button event (showpass_click)
+            ext.valPasswordReqs(txtPassword.Text);
         }
         #endregion
     }

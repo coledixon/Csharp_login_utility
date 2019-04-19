@@ -19,6 +19,7 @@ namespace LoginApp.Controllers
         // main external method class
         public char togglePassChar(char p)
         {
+            // dynamically display text or PassChar
             return p = (p == '*') ? '\0' : '*';
         }
 

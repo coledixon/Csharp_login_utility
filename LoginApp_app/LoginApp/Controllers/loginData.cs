@@ -19,5 +19,23 @@ namespace LoginApp.Controllers
 
         // data conn
         static string dataconnstrng = ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString;
+
+        #region data select
+        public DataTable Select()
+        {
+            DataTable dt = new DataTable();
+
+            SqlConnection conn = new SqlConnection(dataconnstrng);
+            try
+            {
+                string sql = "SELECT TOP 1 user_id FROM vlogin_users";
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            finally { conn.Close(); } // close db connection
+
+
+            return dt;
+        }
+        #endregion
     }
 }
