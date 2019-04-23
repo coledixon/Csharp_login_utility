@@ -19,26 +19,41 @@ namespace LoginApp
         private loginExt ext;
         private loginHash hash;
         private loginProps props;
+        private loginInitSchema schema;
+        private loginDataObjects_tables tbl;
 
         public Login_App()
         {
             InitializeComponent();
             InstantiateObjects();
+            InitSchema();
             checkRecsExist();
         }
 
         // INSTANTIATE CLASS(ES)
         public void InstantiateObjects()
         {
+            // controller objects
             data = new loginData();
             ext = new loginExt();
             //hash = new loginHash();
+
+            // model objects
             //props = new loginProps();
+            tbl = new loginDataObjects_tables();
+
+            // data objects
+            schema = new loginInitSchema();
+        }
+
+        public void InitSchema()
+        {
+            schema.InitTable_UserMain();
         }
 
         private void checkRecsExist()
         {
-            data.Select("cole");
+            data.Select(tbl.user_main, "cole");
             // run after InstantiateObjects()
             // dynamically query SQL || if no records in user_main, all text fields ReadOnly
         }

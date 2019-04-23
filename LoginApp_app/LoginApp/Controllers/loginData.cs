@@ -15,24 +15,23 @@ namespace LoginApp.Controllers
     {
         // INSTANTIATE CLASS(ES)
         loginProps props = new loginProps();
-        loginDataObjects_tables tbls = new loginDataObjects_tables();
 
         // data conn
         static string dataconnstrng = ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString;
 
         #region data select
-        public DataTable Select(string where)
+        public DataTable Select(DataTable tbl, string filter)
         {
             SqlConnection conn = new SqlConnection(dataconnstrng);
             try
             {
-                tbls.User_Main.Select("WHERE first_name = " + where);
+                tbl.Select("WHERE first_name = " + filter);
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
             finally { conn.Close(); } // close db connection
 
 
-            return tbls.User_Main;
+            return tbl;
         }
         #endregion
     }

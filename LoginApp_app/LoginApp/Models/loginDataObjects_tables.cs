@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LoginApp.Models;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,59 +13,11 @@ namespace LoginApp.Models
 {
     class loginDataObjects_tables
     {
+        
         #region public datatable(s)
         // create data objects based on SQL schema
-        public DataTable User_Main
-        {
-            get { return InitTable_UserMain(); }
-            protected set { this.User_Main = value; }
-        }
-
-        public DataTable Pass_Main
-        {
-            get { return InitTable_PassMain(); }
-            protected set { this.Pass_Main = value; }
-        }
-        #endregion
-
-        #region table data objects
-        private DataTable InitTable_UserMain()
-        {
-            DataTable _user_main;
-            try
-            {
-                _user_main = new DataTable();
-
-                _user_main.Columns.Add("user_key", typeof(int));
-                _user_main.Columns.Add("user_id", typeof(string));
-                _user_main.Columns.Add("first_name", typeof(string));
-                _user_main.Columns.Add("last_name", typeof(string));
-                _user_main.Columns.Add("create_date", typeof(DateTime));
-
-                _user_main.PrimaryKey = new DataColumn[] { _user_main.Columns["user_key"] };
-            }
-            catch (Exception ex) { MessageBox.Show("Failure initializing user_main :: loginDataObjects_tables"); return _user_main = null; }
-
-            return _user_main;
-        }
-
-        private DataTable InitTable_PassMain()
-        {
-            DataTable _pass_main;
-            try
-            {
-                _pass_main = new DataTable();
-
-                _pass_main.Columns.Add("user_key", typeof(int));
-                _pass_main.Columns.Add("pass_hash", typeof(string));
-                _pass_main.Columns.Add("pass_salt", typeof(string));
-
-            }
-            catch (Exception ex) { MessageBox.Show("Failure initializing pass_main :: loginDataObjects_tables"); return _pass_main = null; }
-
-            return _pass_main;
-        }
-
+        public DataTable user_main { get; set; }
+        public DataTable pass_main { get; set; }
         #endregion
     }
 }

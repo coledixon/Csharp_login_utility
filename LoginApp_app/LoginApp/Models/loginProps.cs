@@ -12,10 +12,9 @@ namespace LoginApp.Models
 {
     class loginProps
     {
-        // SQL col names not same as props (schema cols include _)
         #region get/set
         // user_main
-        public int UserKey { get; set; }
+        private int UserKey { get; set; }
         public string UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
