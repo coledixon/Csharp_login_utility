@@ -24,13 +24,13 @@ namespace LoginApp
         {
             InitializeComponent();
             InstantiateObjects();
-            // REMOVED: checkRecsExist();
+            checkRecsExist();
         }
 
         // INSTANTIATE CLASS(ES)
         public void InstantiateObjects()
         {
-            //data = new loginData();
+            data = new loginData();
             ext = new loginExt();
             //hash = new loginHash();
             //props = new loginProps();
@@ -38,6 +38,7 @@ namespace LoginApp
 
         private void checkRecsExist()
         {
+            data.Select("cole");
             // run after InstantiateObjects()
             // dynamically query SQL || if no records in user_main, all text fields ReadOnly
         }
