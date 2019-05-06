@@ -21,7 +21,7 @@ namespace LoginApp.Controllers
             DataTable _user_main;
             try
             {
-                _user_main = new DataTable();
+                _user_main = new DataTable("user_main");
 
                 _user_main.Columns.Add("user_key", typeof(int));
                 _user_main.Columns.Add("user_id", typeof(string));
@@ -30,10 +30,12 @@ namespace LoginApp.Controllers
                 _user_main.Columns.Add("create_date", typeof(DateTime));
 
                 _user_main.PrimaryKey = new DataColumn[] { _user_main.Columns["user_key"] };
+
+                DataSet userData = new DataSet();
+                userData.Tables.Add(_user_main);
+
             }
             catch (Exception ex) { MessageBox.Show("Failure initializing user_main :: loginDataObjects_tables"); return; }
-
-            t.user_main = _user_main;
         }
 
         public DataTable InitTable_PassMain()
