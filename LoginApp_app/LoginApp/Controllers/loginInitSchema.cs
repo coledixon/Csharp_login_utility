@@ -12,8 +12,29 @@ using System.Windows.Forms;
 namespace LoginApp.Controllers
 {
     class loginInitSchema
-    {
+    { 
         loginDataObjects_tables t = new loginDataObjects_tables();
+        public DataTable _user = new DataTable("user_main");
+
+        public DataTable test()
+        {
+            SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString);
+            conn.Open();
+
+            string sql = "SELECT * FROM [user_main]";
+
+            SqlCommand cmd = new SqlCommand(sql, conn);
+
+            using (SqlDataAdapter a = new SqlDataAdapter(cmd))
+            {
+                a.Fill(_user);
+            }
+
+            return _user;
+
+        }
+
+
 
         #region table data objects
         public void InitTable_UserMain()

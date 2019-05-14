@@ -40,7 +40,7 @@ namespace LoginApp
 
             // model objects
             //props = new loginProps();
-            // tbl = new loginDataObjects_tables();
+            tbl = new loginDataObjects_tables();
 
             // data objects
             schema = new loginInitSchema();
@@ -48,12 +48,14 @@ namespace LoginApp
 
         public void InitSchema()
         {
-            schema.InitTable_UserMain();
+            tbl.user_main = schema.test();
+            //schema.InitTable_UserMain();
         }
 
         private void checkRecsExist()
         {
-            data.Select(schema., "cole");
+            data.Select(tbl.user_main, "cole");
+            //data.Select(debug, "cole");
             // run after InstantiateObjects()
             // dynamically query SQL || if no records in user_main, all text fields ReadOnly
         }
