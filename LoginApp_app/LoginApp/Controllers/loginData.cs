@@ -23,9 +23,13 @@ namespace LoginApp.Controllers
         public DataTable Select(DataTable tbl, string col, string filter)
         {
             SqlConnection conn = new SqlConnection(dataconnstrng);
+            string query = "SELECT * FROM " + tbl.ToString() + " WHERE " + col + "=" + filter;
             try
             {
-                tbl.Select(col + "=" + filter);
+                SqlCommand cmd = new SqlCommand(query, conn);
+                SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                conn.Open();
+                sda.Fill(tbl);
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
             finally { conn.Close(); } // close db connection
@@ -34,5 +38,38 @@ namespace LoginApp.Controllers
             return tbl;
         }
         #endregion
+    }
+
+    static class DataHelpers
+    {
+        public static string CompileSqlQuery(int queryType, string tbl, List<string> cols, string filter)
+        {
+            string q;
+
+            return q;
+        }
+
+        public static string EvalQueryType(int type)
+        {
+            string ret;
+
+            if (string.IsNullOrEmpty(type.ToString())) { return ret = null; }
+
+            switch (type)
+            {
+                case 1: ret = "SELECT";
+                    break;
+                case 2: ret = "INSERT";
+                    break;
+                case 3: ret = "UPDATE";
+                    break;
+                case 4: ret = "DELETE";
+                    break;
+                default: ret = "SELECT";
+                    break;
+            }
+
+            return ret;
+        }
     }
 }
