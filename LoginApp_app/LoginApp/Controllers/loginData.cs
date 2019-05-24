@@ -23,10 +23,12 @@ namespace LoginApp.Controllers
         public DataTable Select(DataTable tbl, string col, string filter)
         {
             SqlConnection conn = new SqlConnection(dataconnstrng);
-            string query = "SELECT * FROM " + tbl.ToString() + " WHERE " + col + "=" + filter;
+            string query = (DataHelpers.EvalQueryType(1) + 
+                tbl + " WHERE " + col + "=" + filter);
             try
             {
                 SqlCommand cmd = new SqlCommand(query, conn);
+                SqlParameter param = new SqlParameter();
                 SqlDataAdapter sda = new SqlDataAdapter(cmd);
                 conn.Open();
                 sda.Fill(tbl);
@@ -42,12 +44,12 @@ namespace LoginApp.Controllers
 
     static class DataHelpers
     {
-        public static string CompileSqlQuery(int queryType, string tbl, List<string> cols, string filter)
-        {
-            string q;
+        //public static string CompileSqlQuery(int queryType, string tbl, List<string> cols, string filter)
+        //{
+        //    string q;
 
-            return q;
-        }
+        //    return q;
+        //}
 
         public static string EvalQueryType(int type)
         {
@@ -57,15 +59,15 @@ namespace LoginApp.Controllers
 
             switch (type)
             {
-                case 1: ret = "SELECT";
+                case 1: ret = "SELECT * FROM ";
                     break;
-                case 2: ret = "INSERT";
+                case 2: ret = "INSERT INTO ";
                     break;
-                case 3: ret = "UPDATE";
+                case 3: ret = "UPDATE ";
                     break;
-                case 4: ret = "DELETE";
+                case 4: ret = "DELETE FROM ";
                     break;
-                default: ret = "SELECT";
+                default: ret = "SELECT * FROM ";
                     break;
             }
 
