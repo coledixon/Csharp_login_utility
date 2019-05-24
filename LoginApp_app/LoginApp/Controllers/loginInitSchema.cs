@@ -16,28 +16,26 @@ namespace LoginApp.Controllers
         loginDataObjects_tables t = new loginDataObjects_tables();
         public DataTable _user = new DataTable("user_main");
 
-        public DataTable test()
-        {
-            SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString);
-            conn.Open();
+        //public DataTable test()
+        //{
+        //    SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString);
+        //    conn.Open();
 
-            string sql = "SELECT * FROM [user_main]";
+        //    string sql = "SELECT * FROM [user_main]";
 
-            SqlCommand cmd = new SqlCommand(sql, conn);
+        //    SqlCommand cmd = new SqlCommand(sql, conn);
 
-            using (SqlDataAdapter a = new SqlDataAdapter(cmd))
-            {
-                a.Fill(_user);
-            }
+        //    using (SqlDataAdapter a = new SqlDataAdapter(cmd))
+        //    {
+        //        a.Fill(_user);
+        //    }
 
-            return _user;
-
-        }
-
-
+        //    return _user;
+        //}
+    
 
         #region table data objects
-        public void InitTable_UserMain()
+        public DataTable InitTable_UserMain()
         {
             DataTable _user_main;
             try
@@ -56,7 +54,9 @@ namespace LoginApp.Controllers
                 userData.Tables.Add(_user_main);
 
             }
-            catch (Exception ex) { MessageBox.Show("Failure initializing user_main :: loginDataObjects_tables"); return; }
+            catch (Exception ex) { MessageBox.Show("Failure initializing user_main :: loginDataObjects_tables"); return _user_main = null; }
+
+            return _user_main;
         }
 
         public DataTable InitTable_PassMain()

@@ -48,14 +48,12 @@ namespace LoginApp
 
         public void InitSchema()
         {
-            tbl.user_main = schema.test();
-            //schema.InitTable_UserMain();
+            tbl.user_main = schema.InitTable_UserMain();
         }
 
         private void checkRecsExist()
         {
-            data.Select(tbl.user_main, "cole");
-            //data.Select(debug, "cole");
+            data.Select(tbl.user_main, "first_name", "cole");
             // run after InstantiateObjects()
             // dynamically query SQL || if no records in user_main, all text fields ReadOnly
         }

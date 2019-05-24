@@ -20,12 +20,12 @@ namespace LoginApp.Controllers
         static string dataconnstrng = ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString;
 
         #region data select
-        public DataTable Select(DataTable tbl, string filter)
+        public DataTable Select(DataTable tbl, string col, string filter)
         {
             SqlConnection conn = new SqlConnection(dataconnstrng);
             try
             {
-                tbl.Select("WHERE first_name = " + filter);
+                tbl.Select(col + "=" + filter);
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
             finally { conn.Close(); } // close db connection
