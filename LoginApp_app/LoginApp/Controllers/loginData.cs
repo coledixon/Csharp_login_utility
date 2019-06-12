@@ -20,30 +20,39 @@ namespace LoginApp.Controllers
         static string dataconnstrng = ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString;
 
         #region data select
-        public DataTable Select(DataTable tbl, string col, string filter)
+        public DataTable Select(DataTable obj, DataColumn col, string filter)
         {
             SqlConnection conn = new SqlConnection(dataconnstrng);
-            string query = (DataHelpers.EvalQueryType(1) + 
-                tbl + " WHERE " + col + "=" + filter);
+            StringBuilder query = new StringBuilder("SELECT * FROM ");
+
+            query.Append(" " + obj + " ");
+            query.Append(" WHERE " + col + " = '" + filter + "'");
+
             try
             {
-                SqlCommand cmd = new SqlCommand(query, conn);
+                SqlCommand cmd = new SqlCommand(query.ToString(), conn);
                 SqlParameter param = new SqlParameter();
                 SqlDataAdapter sda = new SqlDataAdapter(cmd);
                 conn.Open();
-                sda.Fill(tbl);
+                sda.Fill(obj);
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
             finally { conn.Close(); } // close db connection
 
 
-            return tbl;
+            return obj;
         }
         #endregion
     }
 
     static class DataHelpers
     {
+        public static string CompileWhereClause(List<string> cols, string where)
+        {
+            string retWhere = "";
+
+            return retWhere;
+        }
         //public static string CompileSqlQuery(int queryType, string tbl, List<string> cols, string filter)
         //{
         //    string q;
@@ -51,27 +60,27 @@ namespace LoginApp.Controllers
         //    return q;
         //}
 
-        public static string EvalQueryType(int type)
-        {
-            string ret;
+        //public static string EvalQueryType(int type)
+        //{
+        //    string ret;
 
-            if (string.IsNullOrEmpty(type.ToString())) { return ret = null; }
+        //    if (string.IsNullOrEmpty(type.ToString())) { return ret = null; }
 
-            switch (type)
-            {
-                case 1: ret = "SELECT * FROM ";
-                    break;
-                case 2: ret = "INSERT INTO ";
-                    break;
-                case 3: ret = "UPDATE ";
-                    break;
-                case 4: ret = "DELETE FROM ";
-                    break;
-                default: ret = "SELECT * FROM ";
-                    break;
-            }
+        //    switch (type)
+        //    {
+        //        case 1: ret = "SELECT * FROM ";
+        //            break;
+        //        case 2: ret = "INSERT INTO ";
+        //            break;
+        //        case 3: ret = "UPDATE ";
+        //            break;
+        //        case 4: ret = "DELETE FROM ";
+        //            break;
+        //        default: ret = "SELECT * FROM ";
+        //            break;
+        //    }
 
-            return ret;
-        }
+        //    return ret;
+        //}
     }
 }

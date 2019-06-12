@@ -53,7 +53,7 @@ namespace LoginApp
 
         private void checkRecsExist()
         {
-            data.Select(tbl.user_main, "first_name", "'cole'");
+            data.Select(tbl.user_main, tbl.user_main.Columns["first_name"], "cole");
             // run after InstantiateObjects()
             // dynamically query SQL || if no records in user_main, all text fields ReadOnly
         }
