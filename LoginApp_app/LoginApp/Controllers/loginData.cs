@@ -15,18 +15,23 @@ namespace LoginApp.Controllers
     {
         // INSTANTIATE CLASS(ES)
         loginProps props = new loginProps();
+        DataHelpers dthelpers = new DataHelpers();
 
         // data conn
         static string dataconnstrng = ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString;
 
         #region data select
-        public DataTable Select(DataTable obj, DataColumn col, string filter)
+        public DataTable Select(DataTable obj, DataColumn whereCol, string whereVal)
         {
             SqlConnection conn = new SqlConnection(dataconnstrng);
             StringBuilder query = new StringBuilder("SELECT * FROM ");
 
             query.Append(" " + obj + " ");
-            query.Append(" WHERE " + col + " = '" + filter + "'");
+            if (!string.IsNullOrEmpty(whereCol.ColumnName) && !string.IsNullOrEmpty(whereVal))
+            {
+                whereVal = dthelpers.IncludeSingleQuotes(true, whereVal);
+                query.Append(" WHERE " + whereCol + " = " + whereVal);
+            }
 
             try
             {
@@ -42,45 +47,41 @@ namespace LoginApp.Controllers
 
             return obj;
         }
+
+        //public DataTable Select(DataTable obj, DataColumn whereCol, string whereVal)
+        //{
+        //    SqlConnection conn = new SqlConnection(dataconnstrng);
+        //    StringBuilder query = new StringBuilder("SELECT * FROM ");
+
+        //    query.Append(" " + obj + " ");
+        //    query.Append(" WHERE " + whereCol + " = '" + whereVal + "'");
+
+        //    try
+        //    {
+        //        SqlCommand cmd = new SqlCommand(query.ToString(), conn);
+        //        SqlParameter param = new SqlParameter();
+        //        SqlDataAdapter sda = new SqlDataAdapter(cmd);
+        //        conn.Open();
+        //        sda.Fill(obj);
+        //    }
+        //    catch (Exception ex) { MessageBox.Show(ex.Message); }
+        //    finally { conn.Close(); } // close db connection
+
+
+        //    return obj;
+        //}
         #endregion
     }
 
-    static class DataHelpers
+    public  class DataHelpers
     {
-        public static string CompileWhereClause(List<string> cols, string where)
+        public string IncludeSingleQuotes(bool include, string whereVal)
         {
-            string retWhere = "";
+            string ret = whereVal;
+            if (include) { ret = "'" + whereVal + "'"; }
 
-            return retWhere;
+            return ret;
+
         }
-        //public static string CompileSqlQuery(int queryType, string tbl, List<string> cols, string filter)
-        //{
-        //    string q;
-
-        //    return q;
-        //}
-
-        //public static string EvalQueryType(int type)
-        //{
-        //    string ret;
-
-        //    if (string.IsNullOrEmpty(type.ToString())) { return ret = null; }
-
-        //    switch (type)
-        //    {
-        //        case 1: ret = "SELECT * FROM ";
-        //            break;
-        //        case 2: ret = "INSERT INTO ";
-        //            break;
-        //        case 3: ret = "UPDATE ";
-        //            break;
-        //        case 4: ret = "DELETE FROM ";
-        //            break;
-        //        default: ret = "SELECT * FROM ";
-        //            break;
-        //    }
-
-        //    return ret;
-        //}
     }
 }
