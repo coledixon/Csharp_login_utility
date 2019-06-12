@@ -64,6 +64,7 @@
     <Compile Include="Login_App.Designer.cs">
       <DependentUpon>Login_App.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\loginDataObjects_views.cs" />
     <Compile Include="Models\loginDataObjects_tables.cs" />
     <Compile Include="Models\loginProps.cs" />
     <Compile Include="Program.cs" />

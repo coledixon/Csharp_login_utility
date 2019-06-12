@@ -20,7 +20,9 @@ namespace LoginApp
         private loginHash hash;
         private loginProps props;
         private loginInitSchema schema;
+        // data objects
         private loginDataObjects_tables tbl;
+        private loginDataObjects_views view;
 
         public Login_App()
         {
@@ -41,6 +43,7 @@ namespace LoginApp
             // model objects
             //props = new loginProps();
             tbl = new loginDataObjects_tables();
+            view = new loginDataObjects_views();
 
             // data objects
             schema = new loginInitSchema();
@@ -49,6 +52,10 @@ namespace LoginApp
         public void InitSchema()
         {
             tbl.user_main = schema.InitTable_UserMain();
+            tbl.pass_main = schema.InitTable_PassMain();
+
+            view.vlogin_users = schema.InitView_VLoginUsers();
+            view.vlogin_audit_all = schema.InitView_VLoginAuditAll();
         }
 
         private void checkRecsExist()

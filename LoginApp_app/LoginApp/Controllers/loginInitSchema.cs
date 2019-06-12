@@ -16,24 +16,6 @@ namespace LoginApp.Controllers
         loginDataObjects_tables t = new loginDataObjects_tables();
         public DataTable _user = new DataTable("user_main");
 
-        //public DataTable test()
-        //{
-        //    SqlConnection conn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString);
-        //    conn.Open();
-
-        //    string sql = "SELECT * FROM [user_main]";
-
-        //    SqlCommand cmd = new SqlCommand(sql, conn);
-
-        //    using (SqlDataAdapter a = new SqlDataAdapter(cmd))
-        //    {
-        //        a.Fill(_user);
-        //    }
-
-        //    return _user;
-        //}
-    
-
         #region table data objects
         public DataTable InitTable_UserMain()
         {
@@ -78,7 +60,7 @@ namespace LoginApp.Controllers
         #endregion
 
         #region view data objects
-        public DataTable InitView_VLogin_Users()
+        public DataTable InitView_VLoginUsers()
         {
             DataTable _vlogin_users;
             try
@@ -96,7 +78,7 @@ namespace LoginApp.Controllers
             return _vlogin_users;
         }
 
-        public DataTable InitView_VLogin_Audit_All()
+        public DataTable InitView_VLoginAuditAll()
         {
             DataTable _vlogin_audit_all;
             try
