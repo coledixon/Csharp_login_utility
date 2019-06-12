@@ -9,14 +9,15 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace LoginApp.Models
+namespace LoginApp.Controllers
 {
-    class loginDataObjects_tables
+    class loginDataObjects_views
     {
-        #region public datatable(s)
+        #region public dataviews(s)
         // create data objects based on SQL schema
-        public DataTable user_main { get; set; }
-        public DataTable pass_main { get; set; }
+        public DataTable vlogin_users { get; set; }
+        public DataTable vlogin_audit_all { get; set; }
         #endregion
     }
 }
+

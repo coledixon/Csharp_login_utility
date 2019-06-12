@@ -76,5 +76,43 @@ namespace LoginApp.Controllers
             return _pass_main;
         }
         #endregion
+
+        #region view data objects
+        public DataTable InitView_VLogin_Users()
+        {
+            DataTable _vlogin_users;
+            try
+            {
+                _vlogin_users = new DataTable();
+
+                _vlogin_users.Columns.Add("user_id", typeof(string));
+                _vlogin_users.Columns.Add("first_name", typeof(string));
+                _vlogin_users.Columns.Add("last_name", typeof(string));
+                _vlogin_users.Columns.Add("pass_hash", typeof(string));
+                _vlogin_users.Columns.Add("pass_salt", typeof(string));
+            }
+            catch (Exception ex) { MessageBox.Show("Failure initializing vlogin_users :: loginDataObjects_views"); return _vlogin_users = null; }
+
+            return _vlogin_users;
+        }
+
+        public DataTable InitView_VLogin_Audit_All()
+        {
+            DataTable _vlogin_audit_all;
+            try
+            {
+                _vlogin_audit_all = new DataTable();
+
+                _vlogin_audit_all.Columns.Add("status", typeof(string));
+                _vlogin_audit_all.Columns.Add("curr_session_id", typeof(string));
+                _vlogin_audit_all.Columns.Add("last_login", typeof(DateTime));
+                _vlogin_audit_all.Columns.Add("last_session_id", typeof(string));
+                _vlogin_audit_all.Columns.Add("last_logout", typeof(DateTime));
+            }
+            catch (Exception ex) { MessageBox.Show("Failure initializing _vlogin_audit_all :: loginDataObjects_views"); return _vlogin_audit_all = null; }
+
+            return _vlogin_audit_all;
+        }
+        #endregion
     }
 }
