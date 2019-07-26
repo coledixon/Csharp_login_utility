@@ -52,7 +52,7 @@ namespace LoginApp
         public void InitSchema()
         {
             tbl.user_main = schema.InitTable_UserMain();
-            tbl.pass_main = schema.InitTable_PassMain();
+            // CD REMOVED: using view tbl.pass_main = schema.InitTable_PassMain();
 
             view.vlogin_users = schema.InitView_VLoginUsers();
             view.vlogin_audit_all = schema.InitView_VLoginAuditAll();
