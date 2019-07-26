@@ -17,7 +17,7 @@ namespace LoginApp.Controllers
         loginProps props = new loginProps();
         DataHelpers dthelpers = new DataHelpers();
 
-        // data conn
+        // data connth
         static string dataconnstrng = ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString;
 
         #region data select
@@ -45,7 +45,6 @@ namespace LoginApp.Controllers
             catch (Exception ex) { MessageBox.Show(ex.Message); }
             finally { conn.Close(); } // close db connection
 
-
             return obj;
         }
 
@@ -55,7 +54,7 @@ namespace LoginApp.Controllers
             SqlConnection conn = new SqlConnection(dataconnstrng);
             StringBuilder query = new StringBuilder("SELECT * FROM ");
 
-            query.Append(" " + obj);
+            query.Append(obj);
 
             try
             {
@@ -67,7 +66,6 @@ namespace LoginApp.Controllers
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
             finally { conn.Close(); } // close db connection
-
 
             return obj;
         }
@@ -85,7 +83,7 @@ namespace LoginApp.Controllers
                     + " AND pass_hash =" + dthelpers.IncludeSingleQuotes(true, passHash);
                 query.Append(" " + where);
             }
-            else { Exception ex = new Exception("user_id && pass required"); throw ex; }
+            else { throw new Exception("user_id && pass required"); }
 
             try
             {
@@ -98,8 +96,25 @@ namespace LoginApp.Controllers
             catch (Exception ex) { MessageBox.Show(ex.Message); }
             finally { conn.Close(); } // close db connection
 
-
             return obj;
+        }
+        #endregion
+
+        #region data insert
+        // insert new user
+        public bool Insert(DataTable obj)
+        {
+            bool isSuccess = false; // assume failure
+            SqlConnection conn = new SqlConnection(dataconnstrng);
+
+            try
+            {
+
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            finally { conn.Close(); }
+
+            return isSuccess;
         }
         #endregion
     }

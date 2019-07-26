@@ -16,7 +16,7 @@ namespace LoginApp.Models
         #region public datatable(s)
         // create data objects based on SQL schema
         public DataTable user_main { get; set; }
-        public DataTable pass_main { get; set; }
+        // CD REMOVED: using view public DataTable pass_main { get; set; }
         #endregion
     }
 }
