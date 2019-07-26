@@ -42,25 +42,26 @@ namespace LoginApp.Controllers
             return _user_main;
         }
 
-        public DataTable InitTable_PassMain()
-        {
-            DataTable _pass_main;
-            try
-            {
-                _pass_main = new DataTable("pass_main");
+        // CD REMOVED: using view
+        //public DataTable InitTable_PassMain()
+        //{
+        //    DataTable _pass_main;
+        //    try
+        //    {
+        //        _pass_main = new DataTable("pass_main");
 
-                _pass_main.Columns.Add("user_key", typeof(int));
-                _pass_main.Columns.Add("pass_hash", typeof(string));
-                _pass_main.Columns.Add("pass_salt", typeof(string));
+        //        _pass_main.Columns.Add("user_key", typeof(int));
+        //        _pass_main.Columns.Add("pass_hash", typeof(string));
+        //        _pass_main.Columns.Add("pass_salt", typeof(string));
 
-                DataSet tPassData = new DataSet();
-                tPassData.Tables.Add(_pass_main);
+        //        DataSet tPassData = new DataSet();
+        //        tPassData.Tables.Add(_pass_main);
 
-            }
-            catch (Exception ex) { MessageBox.Show("Failure initializing pass_main :: loginDataObjects_tables"); return _pass_main = null; }
+        //    }
+        //    catch (Exception ex) { MessageBox.Show("Failure initializing pass_main :: loginDataObjects_tables"); return _pass_main = null; }
 
-            return _pass_main;
-        }
+        //    return _pass_main;
+        //}
         #endregion
 
         #region view data objects
