@@ -9,6 +9,63 @@ GO
 -- drop and create in case of master schema changes
 
 -----
+--- CREATE PROC for creating new user record (from admin console)
+-----
+IF OBJECT_ID('dbo.spcreateUser') is not null DROP PROC [dbo].[spcreateUser]
+GO
+
+	CREATE PROC [dbo].[spcreateUser]
+	@user_id varchar(50),
+	@first_name varchar(15),
+	@last_name varchar(20),
+	@password varchar(MAX),
+	@retval int = 0 OUTPUT,
+	@errmess varchar(250) = null OUTPUT
+	AS
+
+	DECLARE @user_key int, @pw_salt UNIQUEIDENTIFIER = NEWID() -- default salt on proc call
+
+	-- retrieve next userkey in sequence
+	EXEC spgetNextUserKey @user_key OUTPUT, @retval OUTPUT, @errmess OUTPUT
+
+	IF (COALESCE(@retval,0) <= 0) OR (COALESCE(@user_key,0) = 0)
+	BEGIN
+		SELECT @errmess
+		GOTO ERROR
+	END
+
+	IF (COALESCE(@user_key,0)>0)
+	BEGIN
+		-- insert new user / pass
+		INSERT user_main (user_key, user_id, first_name, last_name, create_date)
+		VALUES(@user_key, @user_id, @first_name, @last_name, GETDATE())
+
+		INSERT pass_main (user_key, pass_hash, pass_salt)
+		VALUES (@user_key, HASHBYTES('SHA2_512', (@password+CAST(@pw_salt as nvarchar(36)))), @pw_salt)
+
+		IF @@ROWCOUNT = 0
+		BEGIN
+			SELECT @retval = -1, @errmess = 'error running spcreateUser'
+			GOTO ERROR
+		END
+		ELSE BEGIN
+			SELECT @retval = 1, @errmess = ''
+			GOTO SPEND
+		END
+	END
+
+	SPEND:
+		SELECT 'SUCCESS', @retval retval, @errmess errmess
+		RETURN
+
+	ERROR:
+		SELECT 'FAIL', @retval retval, @errmess errmess
+		RETURN
+
+GO
+
+
+-----
 --- CREATE PROC for establishing a valid user session
 -----
 IF OBJECT_ID('dbo.spcreateSession') is not null DROP PROC [dbo].[spcreateSession]
@@ -38,7 +95,7 @@ GO
 	@errmess varchar(250) = NULL OUTPUT
 	AS
 
-	-- HASHBYTES() pw salt in SQLa
+	-- HASHBYTES() pw salt in SQL
 GO
 
 -----
@@ -70,6 +127,14 @@ GO
 	@retval int = NULL OUTPUT,
 	@errmess varchar(250) = NULL OUTPUT
 	AS
+
+	SELECT TOP 1 1 FROM user_key_store
+
+	IF @@ROWCOUNT = 0 -- set base userkey if first time running
+	BEGIN
+		INSERT user_key_store (user_key)
+		VALUES(1)	
+	END
 
 	SELECT @user_key = COALESCE(user_key,0)
 		FROM user_key_store
