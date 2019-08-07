@@ -39,7 +39,13 @@ namespace LoginApp
         #region button events
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            data.Insert(txtUserName.Text, txtFName.Text, txtLName.Text, txtPassword.Text);
+            if (checkFieldvals())
+            {
+                if (!data.Insert(txtUserName.Text, txtFName.Text, txtLName.Text, txtPassword.Text))
+                {
+                    MessageBox.Show("ERROR ON DATAA INSERT: btnAdd_Click > loginData.Insert()");
+                }
+            }
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -73,5 +79,17 @@ namespace LoginApp
             ext.valPasswordReqs(txtPassword.Text);
         }
         #endregion
+
+        private bool checkFieldvals()
+        {
+            if (string.IsNullOrEmpty(txtFName.Text) || string.IsNullOrEmpty(txtLName.Text)
+                || string.IsNullOrEmpty(txtUserName.Text) || string.IsNullOrEmpty(txtPassword.Text))
+            {
+                MessageBox.Show("all fields required. please review form before submission.");
+                return false;
+            }
+
+            return true;
+        }
     }
 }

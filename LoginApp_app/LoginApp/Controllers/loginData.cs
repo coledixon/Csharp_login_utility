@@ -118,7 +118,7 @@ namespace LoginApp.Controllers
                 cmd.Parameters.AddWithValue("password", pass);
                  // output(s)
                 cmd.Parameters.Add("@retval", SqlDbType.Int).Direction = ParameterDirection.Output;
-                cmd.Parameters.Add("@errmess", SqlDbType.VarChar).Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("@errmess", SqlDbType.VarChar, 250).Direction = ParameterDirection.Output;
 
                 conn.Open(); // open db connection
                 cmd.ExecuteNonQuery(); // exec proc
