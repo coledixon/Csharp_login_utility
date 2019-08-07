@@ -39,7 +39,7 @@ namespace LoginApp
         #region button events
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            // SQL insert func
+            data.Insert(txtUserName.Text, txtFName.Text, txtLName.Text, txtPassword.Text);
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
