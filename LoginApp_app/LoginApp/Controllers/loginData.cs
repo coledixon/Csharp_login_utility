@@ -102,22 +102,30 @@ namespace LoginApp.Controllers
 
         #region data insert
         // insert new user
-        public bool Insert(DataTable obj)
+        public bool Insert(string userId, string firstName, string lastName, string pass)
         {
             bool isSuccess = false; // assume failure
             SqlConnection conn = new SqlConnection(dataconnstrng);
-            StringBuilder query = new StringBuilder("INSERT INTO ");
-
-            query.Append(obj);
-            query.Append(" VALUES")
+            int retval; string errmess;
 
             try
             {
-                SqlCommand cmd = new SqlCommand(query.ToString(), conn);
-                SqlParameter param = new SqlParameter();
-                SqlDataAdapter sda = new SqlDataAdapter(cmd);
-                conn.Open();
-                sda.Fill(obj);
+                SqlCommand cmd = new SqlCommand("spcreateUser", conn) { CommandType = CommandType.StoredProcedure };
+                // input(s)
+                cmd.Parameters.AddWithValue("@user_id", userId);
+                cmd.Parameters.AddWithValue("first_name", firstName);
+                cmd.Parameters.AddWithValue("last_name", lastName);
+                cmd.Parameters.AddWithValue("password", pass);
+                 // output(s)
+                cmd.Parameters.Add("@retval", SqlDbType.Int).Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("@errmess", SqlDbType.VarChar).Direction = ParameterDirection.Output;
+
+                conn.Open(); // open db connection
+                cmd.ExecuteNonQuery(); // exec proc
+
+                // capture output(s)
+                retval = Convert.ToInt32(cmd.Parameters["@retval"].Value);
+                errmess = cmd.Parameters["@errmess"].Value.ToString();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
             finally { conn.Close(); }
