@@ -43,7 +43,7 @@ namespace LoginApp
             {
                 if (!data.Insert(txtUserName.Text, txtFName.Text, txtLName.Text, txtPassword.Text))
                 {
-                    MessageBox.Show("ERROR ON DATAA INSERT: btnAdd_Click > loginData.Insert()");
+                    MessageBox.Show("ERROR ON DATA INSERT: Admin.btnAdd_Click > loginData.Insert()");
                 }
             }
         }

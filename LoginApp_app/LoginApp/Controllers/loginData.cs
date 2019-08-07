@@ -126,11 +126,21 @@ namespace LoginApp.Controllers
                 // capture output(s)
                 retval = Convert.ToInt32(cmd.Parameters["@retval"].Value);
                 errmess = cmd.Parameters["@errmess"].Value.ToString();
+
+                isSuccess = true;
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception ex) { MessageBox.Show(ex.Message); isSuccess = false; }
             finally { conn.Close(); }
 
             return isSuccess;
+        }
+        #endregion
+
+        #region data create
+        public bool CreateSession()
+        {
+            // create SQL login session via spcreateSession
+            return false;
         }
         #endregion
     }
