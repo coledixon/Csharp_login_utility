@@ -106,10 +106,18 @@ namespace LoginApp.Controllers
         {
             bool isSuccess = false; // assume failure
             SqlConnection conn = new SqlConnection(dataconnstrng);
+            StringBuilder query = new StringBuilder("INSERT INTO ");
+
+            query.Append(obj);
+            query.Append(" VALUES")
 
             try
             {
-
+                SqlCommand cmd = new SqlCommand(query.ToString(), conn);
+                SqlParameter param = new SqlParameter();
+                SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                conn.Open();
+                sda.Fill(obj);
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
             finally { conn.Close(); }

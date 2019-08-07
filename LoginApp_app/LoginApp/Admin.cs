@@ -30,10 +30,10 @@ namespace LoginApp
         // INSTANTIATE CLASS(ES)
         public void InstantiateObjects()
         {
-            //data = new loginData();
+            data = new loginData();
             ext = new loginExt();
             //hash = new loginHash();
-            //props = new loginProps();
+            props = new loginProps();
         }
 
         #region button events
