@@ -49,6 +49,8 @@ namespace LoginApp
                     MessageBox.Show("ERROR ON DATA INSERT: Admin.btnAdd_Click > loginData.Insert()");
                 }
             }
+
+            CloseForm(this);
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -80,6 +82,13 @@ namespace LoginApp
         {
             // DEBUG: firing before button event (showpass_click)
             ext.valPasswordReqs(txtPassword.Text);
+        }
+        #endregion
+
+        #region close events
+        public void CloseForm(object form)
+        {
+            this.Close();
         }
         #endregion
     }
