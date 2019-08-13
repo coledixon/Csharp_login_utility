@@ -21,34 +21,7 @@ namespace LoginApp.Controllers
         static string dataconnstrng = ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString;
 
         #region data select
-        // filter select
-        public DataTable Select(DataTable obj, DataColumn whereCol, string whereVal)
-        {
-            SqlConnection conn = new SqlConnection(dataconnstrng);
-            StringBuilder query = new StringBuilder("SELECT * FROM ");
-
-            query.Append(obj);
-            if (!string.IsNullOrEmpty(whereCol.ColumnName) && !string.IsNullOrEmpty(whereVal))
-            {
-                whereVal = dthelpers.IncludeSingleQuotes(true, whereVal);
-                query.Append(" WHERE " + whereCol + " = " + whereVal);
-            }
-
-            try
-            {
-                SqlCommand cmd = new SqlCommand(query.ToString(), conn);
-                SqlParameter param = new SqlParameter();
-                SqlDataAdapter sda = new SqlDataAdapter(cmd);
-                conn.Open();
-                sda.Fill(obj);
-            }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
-            finally { conn.Close(); } // close db connection
-
-            return obj;
-        }
-
-        // general 'SELECT *'
+        // base select
         public DataTable Select(DataTable obj)
         {
             SqlConnection conn = new SqlConnection(dataconnstrng);
@@ -70,20 +43,47 @@ namespace LoginApp.Controllers
             return obj;
         }
 
-        // user/pass select
-        public DataTable Select(DataTable obj, string userId, string passHash)
+        // filter select(s)
+        public DataTable Select(DataTable obj, string firstName, string lastName)
         {
             SqlConnection conn = new SqlConnection(dataconnstrng);
             StringBuilder query = new StringBuilder("SELECT * FROM ");
 
             query.Append(obj);
-            if (!string.IsNullOrEmpty(userId) && !string.IsNullOrEmpty(passHash))
+            if (!string.IsNullOrEmpty(firstName) && !string.IsNullOrEmpty(lastName))
             {
-                string where = " user_id = " + dthelpers.IncludeSingleQuotes(true, userId)
-                    + " AND pass_hash =" + dthelpers.IncludeSingleQuotes(true, passHash);
+                string where = "WHERE first_name = " + dthelpers.IncludeSingleQuotes(true, firstName)
+                    + " AND " + dthelpers.IncludeSingleQuotes(true, lastName);
                 query.Append(" " + where);
             }
-            else { throw new Exception("user_id && pass required"); }
+            else { throw new Exception("first_name && last_name are required as parameters"); }
+
+            try
+            {
+                SqlCommand cmd = new SqlCommand(query.ToString(), conn);
+                SqlParameter param = new SqlParameter();
+                SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                conn.Open();
+                sda.Fill(obj);
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            finally { conn.Close(); } // close db connection
+
+            return obj;
+        }
+
+        public DataTable Select(DataTable obj, string userId)
+        {
+            SqlConnection conn = new SqlConnection(dataconnstrng);
+            StringBuilder query = new StringBuilder("SELECT * FROM ");
+
+            query.Append(obj);
+            if (!string.IsNullOrEmpty(userId))
+            {
+                string where = "WHERE user_id = " + dthelpers.IncludeSingleQuotes(true, userId);
+                query.Append(" " + where);
+            }
+            else { throw new Exception("user_id required as parameter"); }
 
             try
             {
