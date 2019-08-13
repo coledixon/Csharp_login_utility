@@ -128,26 +128,26 @@ GO
 	@errmess varchar(250) = NULL OUTPUT
 	AS
 
-	SELECT TOP 1 1 FROM user_key_store
-
-	IF @@ROWCOUNT = 0 -- set base userkey if first time running
-	BEGIN
-		INSERT user_key_store (user_key)
-		VALUES(1)	
-	END
-
 	SELECT @user_key = COALESCE(user_key,0)
 		FROM user_key_store
 
-		IF (COALESCE(@user_key,0) = 0)
+	IF (COALESCE(@user_key,0) = 0)
+	BEGIN
+		INSERT user_key_store (user_key)
+		VALUES(1)
+
+		IF @@ROWCOUNT = 0
 		BEGIN
 			SELECT @retval = -1, @errmess = 'ERROR FETCHING NEXT user_key FROM user_key_store'
 			GOTO ERROR
 		END
-		ELSE BEGIN
-			SELECT @user_key = (@user_key + 1) /* increment key */, @retval = 1
-			GOTO SPEND
-		END
+
+		SET @user_key = 1
+	END
+	ELSE BEGIN
+		SELECT @user_key = (@user_key + 1) /* increment key */, @retval = 1
+		GOTO SPEND
+	END
 
 	SPEND:
 		SELECT 'SUCCESS', @retval retval
