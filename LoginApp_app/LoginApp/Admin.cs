@@ -20,6 +20,7 @@ namespace LoginApp
         private loginExt ext;
         private loginHash hash;
         private loginProps props;
+        private adminHelpers helpers;
 
         public Admin()
         {
@@ -32,14 +33,16 @@ namespace LoginApp
         {
             data = new loginData();
             ext = new loginExt();
+            helpers = new adminHelpers();
             //hash = new loginHash();
             props = new loginProps();
+
         }
 
         #region button events
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (checkFieldvals())
+            if (helpers.checkFieldvals(txtFName.Text, txtLName.Text, txtUserName.Text, txtPassword.Text))
             {
                 if (!data.Insert(txtUserName.Text, txtFName.Text, txtLName.Text, txtPassword.Text))
                 {
@@ -79,11 +82,14 @@ namespace LoginApp
             ext.valPasswordReqs(txtPassword.Text);
         }
         #endregion
+    }
 
-        private bool checkFieldvals()
+    public class adminHelpers
+    {
+        public bool checkFieldvals(string firstName, string lastName, string userName, string pass)
         {
-            if (string.IsNullOrEmpty(txtFName.Text) || string.IsNullOrEmpty(txtLName.Text)
-                || string.IsNullOrEmpty(txtUserName.Text) || string.IsNullOrEmpty(txtPassword.Text))
+            if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName)
+                || string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(pass))
             {
                 MessageBox.Show("all fields required. please review form before submission.");
                 return false;
@@ -93,3 +99,4 @@ namespace LoginApp
         }
     }
 }
+
