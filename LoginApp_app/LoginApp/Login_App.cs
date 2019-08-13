@@ -61,8 +61,17 @@ namespace LoginApp
         private void checkRecsExist()
         {
             data.Select(view.vlogin_users);
-            // run after InstantiateObjects()
-            // dynamically query SQL || if no records in user_main, all text fields ReadOnly
+
+            // set fields to ReadOnly is no users in db
+            if (view.vlogin_users.Rows.Count == 0)
+            {
+                txtUsername.ReadOnly = true;
+                txtPassword.ReadOnly = true;
+            }
+            else {
+                txtUsername.ReadOnly = false;
+                txtPassword.ReadOnly = false;
+            }
         }
 
         #region focus events
@@ -79,6 +88,9 @@ namespace LoginApp
 
             Admin frm = new Admin(); // call admin.cs
             frm.Show();
+
+            frm.clo
+            checkRecsExist(); // run db check after admin form closes }
 
         }
 
