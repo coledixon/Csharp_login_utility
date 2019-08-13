@@ -65,12 +65,12 @@ namespace LoginApp
             // set fields to ReadOnly is no users in db
             if (view.vlogin_users.Rows.Count == 0)
             {
-                txtUsername.ReadOnly = true;
-                txtPassword.ReadOnly = true;
+                txtUsername.Enabled = false;
+                txtPassword.Enabled = false;
             }
             else {
-                txtUsername.ReadOnly = false;
-                txtPassword.ReadOnly = false;
+                txtUsername.Enabled = true;
+                txtPassword.Enabled = true;
             }
         }
 
@@ -89,8 +89,7 @@ namespace LoginApp
             Admin frm = new Admin(); // call admin.cs
             frm.Show();
 
-            frm.clo
-            checkRecsExist(); // run db check after admin form closes }
+            // checkRecsExist(); // run db check after admin form closes }
 
         }
 
