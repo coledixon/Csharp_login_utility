@@ -20,6 +20,7 @@ namespace LoginApp
         private loginHash hash;
         private loginProps props;
         private loginInitSchema schema;
+
         // data objects
         private loginDataObjects_tables tbl;
         private loginDataObjects_views view;
