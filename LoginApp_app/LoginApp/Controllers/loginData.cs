@@ -127,7 +127,7 @@ namespace LoginApp.Controllers
                 retval = Convert.ToInt32(cmd.Parameters["@retval"].Value);
                 errmess = cmd.Parameters["@errmess"].Value.ToString();
 
-                isSuccess = true;
+                isSuccess = (retval > 0) ? true : false;
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); isSuccess = false; }
             finally { conn.Close(); }
