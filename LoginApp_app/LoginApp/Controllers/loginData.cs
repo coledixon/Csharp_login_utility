@@ -72,14 +72,15 @@ namespace LoginApp.Controllers
             return obj;
         }
 
-        public bool Select(string userId)
+        public bool Select(DataTable obj, string userId)
         {
             SqlConnection conn = new SqlConnection(dataconnstrng);
-            StringBuilder query = new StringBuilder("SELECT * FROM vlogin_users WHERE user_id = ");
+            StringBuilder query = new StringBuilder("SELECT * FROM ");
 
+            query.Append(obj);
             if (!string.IsNullOrEmpty(userId))
             {
-                query.Append(" " + dthelpers.IncludeSingleQuotes(true, userId));
+                query.Append(" WHERE user_id = " + dthelpers.IncludeSingleQuotes(true, userId));
             }
             else { throw new Exception("user_id required as parameter"); }
 
