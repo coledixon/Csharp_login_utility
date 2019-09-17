@@ -19,13 +19,19 @@ namespace LoginApp
         private loginData data;
         private loginExt ext;
         private loginHash hash;
-        private loginProps props;
         private adminHelpers helpers;
+        private loginProps props;
+        private loginInitSchema schema;
+
+        // data objects
+        private loginDataObjects_tables tbl;
+        private loginDataObjects_views view;
 
         public Admin()
         {
             InitializeComponent();
             InstantiateObjects();
+            InitSchema();
         }
 
         // INSTANTIATE CLASS(ES)
@@ -33,10 +39,25 @@ namespace LoginApp
         {
             data = new loginData();
             ext = new loginExt();
-            helpers = new adminHelpers();
             //hash = new loginHash();
-            props = new loginProps();
+            helpers = new adminHelpers();
 
+            // model objects
+            props = new loginProps();
+            tbl = new loginDataObjects_tables();
+            view = new loginDataObjects_views();
+
+            // data objects
+            schema = new loginInitSchema();
+        }
+
+        public void InitSchema()
+        {
+            tbl.user_main = schema.InitTable_UserMain();
+            // CD REMOVED: using view tbl.pass_main = schema.InitTable_PassMain();
+
+            view.vlogin_users = schema.InitView_VLoginUsers();
+            view.vlogin_audit_all = schema.InitView_VLoginAuditAll();
         }
 
         #region button events
@@ -78,9 +99,13 @@ namespace LoginApp
         {
             if (!string.IsNullOrEmpty(txtUserName.Text))
             {
-                if (data.Select())
+                if (data.Select(tbl.user_main, txtUserName.Text))
+                {
+                    MessageBox.Show("username already exists");
+                }
             }
         }
+
         private void txtPassword_LostFocus(object sender, EventArgs e)
         {
             // DEBUG: firing before button event (showpass_click)
