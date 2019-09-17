@@ -61,7 +61,7 @@ GO
 	ERROR:
 		SELECT 'FAIL', @retval retval, @errmess errmess
 		RETURN
-
+		
 GO
 
 
@@ -122,13 +122,15 @@ GO
 IF OBJECT_ID('dbo.spgetNextUserKey') is not null DROP PROC [dbo].[spgetNextUserKey]
 GO
 
+	
+
 	CREATE PROC [dbo].[spgetNextUserKey]
 	@user_key int = 0 OUTPUT,
 	@retval int = NULL OUTPUT,
 	@errmess varchar(250) = NULL OUTPUT
 	AS
 
-	SELECT @user_key = COALESCE(user_key,0)
+	SELECT @user_key = MAX(COALESCE(user_key,0))
 		FROM user_key_store
 
 	IF (COALESCE(@user_key,0) = 0)
@@ -142,10 +144,15 @@ GO
 			GOTO ERROR
 		END
 
-		SET @user_key = 1
+		SELECT @user_key = 1, @retval = 1
+		GOTO SPEND
 	END
 	ELSE BEGIN
 		SELECT @user_key = (@user_key + 1) /* increment key */, @retval = 1
+
+		UPDATE user_key_store -- set new user_key base
+			SET user_key = @user_key
+
 		GOTO SPEND
 	END
 
@@ -156,5 +163,6 @@ GO
 	ERROR:
 		SELECT @retval retval, @errmess errmess
 		RETURN
+
 
 GO
