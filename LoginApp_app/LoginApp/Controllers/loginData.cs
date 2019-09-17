@@ -113,9 +113,9 @@ namespace LoginApp.Controllers
                 SqlCommand cmd = new SqlCommand("spcreateUser", conn) { CommandType = CommandType.StoredProcedure };
                 // input(s)
                 cmd.Parameters.AddWithValue("@user_id", userId);
-                cmd.Parameters.AddWithValue("first_name", firstName);
-                cmd.Parameters.AddWithValue("last_name", lastName);
-                cmd.Parameters.AddWithValue("password", pass);
+                cmd.Parameters.AddWithValue("@first_name", firstName);
+                cmd.Parameters.AddWithValue("@last_name", lastName);
+                cmd.Parameters.AddWithValue("@password", pass);
                  // output(s)
                 cmd.Parameters.Add("@retval", SqlDbType.Int).Direction = ParameterDirection.Output;
                 cmd.Parameters.Add("@errmess", SqlDbType.VarChar, 250).Direction = ParameterDirection.Output;
