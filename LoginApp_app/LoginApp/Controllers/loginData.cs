@@ -72,16 +72,14 @@ namespace LoginApp.Controllers
             return obj;
         }
 
-        public DataTable Select(DataTable obj, string userId)
+        public bool Select(string userId)
         {
             SqlConnection conn = new SqlConnection(dataconnstrng);
-            StringBuilder query = new StringBuilder("SELECT * FROM ");
+            StringBuilder query = new StringBuilder("SELECT * FROM vlogin_users WHERE user_id = ");
 
-            query.Append(obj);
             if (!string.IsNullOrEmpty(userId))
             {
-                string where = "WHERE user_id = " + dthelpers.IncludeSingleQuotes(true, userId);
-                query.Append(" " + where);
+                query.Append(" " + dthelpers.IncludeSingleQuotes(true, userId));
             }
             else { throw new Exception("user_id required as parameter"); }
 
@@ -96,7 +94,8 @@ namespace LoginApp.Controllers
             catch (Exception ex) { MessageBox.Show(ex.Message); }
             finally { conn.Close(); } // close db connection
 
-            return obj;
+            if (obj.Rows.Count > 0) { return true; }
+            else { return false; }
         }
         #endregion
 

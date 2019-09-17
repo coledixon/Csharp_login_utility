@@ -76,7 +76,10 @@ namespace LoginApp
         #region focus events
         private void txtUserName_LostFocus(object sender, EventArgs e)
         {
-            // dynamically query SQL to validate username does not exist
+            if (!string.IsNullOrEmpty(txtUserName.Text))
+            {
+                if (data.Select())
+            }
         }
         private void txtPassword_LostFocus(object sender, EventArgs e)
         {
