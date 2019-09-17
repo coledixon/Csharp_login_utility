@@ -95,7 +95,7 @@ namespace LoginApp.Controllers
             catch (Exception ex) { MessageBox.Show(ex.Message); }
             finally { conn.Close(); } // close db connection
 
-            if (obj.Rows.Count > 0) { return true; }
+            if (obj.Rows.Count > 0) { return true; } // record found for username
             else { return false; }
         }
         #endregion
