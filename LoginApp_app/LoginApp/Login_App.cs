@@ -91,7 +91,6 @@ namespace LoginApp
             frm.Show();
 
             // checkRecsExist(); // run db check after admin form closes }
-
         }
 
         private void btnLogin_Click(object sender, EventArgs e)

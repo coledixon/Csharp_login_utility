@@ -153,7 +153,6 @@ namespace LoginApp.Controllers
             if (include) { ret = "'" + whereVal + "'"; }
 
             return ret;
-
         }
     }
 }
