@@ -14,6 +14,7 @@ namespace LoginApp.Controllers
     class loginData
     {
         // INSTANTIATE CLASS(ES)
+        loginHash hash = new loginHash();
         loginProps props = new loginProps();
         DataHelpers dthelpers = new DataHelpers();
 
@@ -115,8 +116,9 @@ namespace LoginApp.Controllers
                 cmd.Parameters.AddWithValue("@user_id", userId);
                 cmd.Parameters.AddWithValue("@first_name", firstName);
                 cmd.Parameters.AddWithValue("@last_name", lastName);
-                cmd.Parameters.AddWithValue("@password", pass);
-                 // output(s)
+                cmd.Parameters.AddWithValue("@password_hash", pass);
+                // DEBUG C# hash + SQL salt -- cmd.Parameters.AddWithValue("@password_hash", hash.hashSHA2_512(pass)); // hash pass prior to SQL
+                // output(s)
                 cmd.Parameters.Add("@retval", SqlDbType.Int).Direction = ParameterDirection.Output;
                 cmd.Parameters.Add("@errmess", SqlDbType.VarChar, 250).Direction = ParameterDirection.Output;
 
