@@ -18,7 +18,7 @@ GO
 	@user_id varchar(50),
 	@first_name varchar(15),
 	@last_name varchar(20),
-	@password varchar(MAX),
+	@password_hash varchar(MAX),
 	@retval int = 0 OUTPUT,
 	@errmess varchar(250) = null OUTPUT
 	AS
@@ -36,16 +36,71 @@ GO
 
 	IF (COALESCE(@user_key,0)>0)
 	BEGIN
+		-- TO DO: rebuild to use insert on vlogin_users > trigger
+
 		-- insert new user / pass
 		INSERT user_main (user_key, user_id, first_name, last_name, create_date)
 		VALUES(@user_key, @user_id, @first_name, @last_name, GETDATE())
 
 		INSERT pass_main (user_key, pass_hash, pass_salt)
-		VALUES (@user_key, HASHBYTES('SHA2_512', (@password+CAST(@pw_salt as nvarchar(36)))), @pw_salt)
+		-- DEBUG: C# hashing -- VALUES (@user_key, (@password_hash + CAST(@pw_salt as nvarchar(max))), @pw_salt)
+		VALUES (@user_key, HASHBYTES('SHA2_512', (@password_hash+CAST(@pw_salt as nvarchar(36)))), @pw_salt)
 
 		IF @@ROWCOUNT = 0
 		BEGIN
 			SELECT @retval = -1, @errmess = 'error running spcreateUser'
+			GOTO ERROR
+		END
+		ELSE BEGIN
+			SELECT @retval = 1, @errmess = ''
+			GOTO SPEND
+		END
+	END
+
+	SPEND:
+		SELECT 'SUCCESS', @retval retval, @errmess errmess
+		RETURN
+
+	ERROR:
+		SELECT 'FAIL', @retval retval, @errmess errmess
+		RETURN
+		
+GO
+
+-----
+--- UPDATE PROC for updateing an existing user record (from admin console)
+-----
+IF OBJECT_ID('dbo.spupdateUser') is not null DROP PROC [dbo].[spupdateUser]
+GO
+
+	CREATE PROC [dbo].[spupdateUser]
+	@user_id varchar(50),
+	@first_name varchar(15),
+	@last_name varchar(20),
+	@password varchar(MAX),
+	@retval int = 0 OUTPUT,
+	@errmess varchar(250) = null OUTPUT
+	AS
+
+	DECLARE @pw_salt UNIQUEIDENTIFIER = NEWID() -- default salt on proc call
+
+	SELECT TOP 1 * 
+		FROM vlogin_users
+		WHERE user_id = @user_id
+
+	IF @@ROWCOUNT = 1
+	BEGIN
+		-- TO DO: update to use update on vlogin_users > trigger
+
+		-- update user / pass
+		UPDATE user_main
+			SET user_id = @user_id, first_name = @first_name, last_name = @last_name
+
+		-- build logic to match if password has been updated
+
+		IF @@ROWCOUNT = 0
+		BEGIN
+			SELECT @retval = -1, @errmess = 'error running spupdateUser'
 			GOTO ERROR
 		END
 		ELSE BEGIN
@@ -163,6 +218,5 @@ GO
 	ERROR:
 		SELECT @retval retval, @errmess errmess
 		RETURN
-
 
 GO
