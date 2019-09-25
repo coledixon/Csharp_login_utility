@@ -146,7 +146,7 @@ namespace LoginApp
             props.UserId = data.GetValue(0).ToString();
             props.FirstName = data.GetValue(1).ToString();
             props.LastName = data.GetValue(2).ToString();
-            // TO DO: build hashing from SHA512 in SQL to text in C#
+            // TO DO: build hashing from SHA2_512 in SQL to text in C#
         }
     }
 }
