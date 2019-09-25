@@ -53,7 +53,7 @@ namespace LoginApp.Controllers
             if (!string.IsNullOrEmpty(firstName) && !string.IsNullOrEmpty(lastName))
             {
                 string where = "WHERE first_name = " + dthelpers.IncludeSingleQuotes(true, firstName)
-                    + " AND " + dthelpers.IncludeSingleQuotes(true, lastName);
+                    + " AND last_name = " + dthelpers.IncludeSingleQuotes(true, lastName);
                 query.Append(" " + where);
             }
             else { throw new Exception("first_name && last_name are required as parameters"); }
@@ -133,6 +133,13 @@ namespace LoginApp.Controllers
             finally { conn.Close(); }
 
             return isSuccess;
+        }
+        #endregion
+
+        #region data update
+        public bool Update(string userId, string firstName, string lastName, string pass)
+        {
+            return false;
         }
         #endregion
 
