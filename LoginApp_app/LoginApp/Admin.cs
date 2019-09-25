@@ -99,7 +99,7 @@ namespace LoginApp
         {
             if (!string.IsNullOrEmpty(txtUserName.Text))
             {
-                if (data.Select(tbl.user_main, txtUserName.Text))
+                if (data.Select(view.vlogin_users, txtUserName.Text))
                 {
                     MessageBox.Show("username already exists");
                 }
