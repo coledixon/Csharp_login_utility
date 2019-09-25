@@ -11,9 +11,9 @@ namespace LoginApp.Controllers
     class loginHash
     {
         // CD: testing base functionality for parsing hash
-        public static string hashSHA2_512(string val)
+        public string hashSHA2_512(string val)
         {
-            var sha2_512 = System.Security.Cryptography.SHA512.Create();
+            var sha2_512 = SHA512.Create(); // derived from System.Security.Cryptpography{}
             var bytes = Encoding.ASCII.GetBytes(val);
             var hash = sha2_512.ComputeHash(bytes);
 
