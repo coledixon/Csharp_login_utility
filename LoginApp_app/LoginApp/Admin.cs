@@ -99,8 +99,14 @@ namespace LoginApp
         {
             if (!string.IsNullOrEmpty(txtUserName.Text))
             {
+                // autofill form if username exists instead of prompt error
+
                 if (data.Select(view.vlogin_users, txtUserName.Text))
                 {
+                    helpers.setProps(view.vlogin_users.Rows[0].ItemArray, props);
+                    txtFName.Text = props.FirstName;
+                    txtLName.Text = props.LastName;
+                    txtUserName.Text = props.UserId;
                     MessageBox.Show("username already exists");
                 }
             }
@@ -121,7 +127,7 @@ namespace LoginApp
         #endregion
     }
 
-    public class adminHelpers
+    public class adminHelpers 
     {
         public bool checkFieldvals(string firstName, string lastName, string userName, string pass)
         {
@@ -133,6 +139,14 @@ namespace LoginApp
             }
 
             return true;
+        }
+
+        internal void setProps(Array data, loginProps props)
+        {
+            props.UserId = data.GetValue(0).ToString();
+            props.FirstName = data.GetValue(1).ToString();
+            props.LastName = data.GetValue(2).ToString();
+            // TO DO: build hashing from SHA512 in SQL to text in C#
         }
     }
 }
