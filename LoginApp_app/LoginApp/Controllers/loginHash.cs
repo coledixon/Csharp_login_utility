@@ -24,5 +24,12 @@ namespace LoginApp.Controllers
             }
             return sb.ToString();
         }
+
+        public string genSalt()
+        {
+            Guid salt = Guid.NewGuid();
+
+            return salt.ToString();
+        }
     }
 }
