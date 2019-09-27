@@ -35,7 +35,6 @@ namespace LoginApp.Controllers
             if (!pass) { MessageBox.Show("password must contain at least one (1) special character"); return pass; }
 
             return pass; // default return
-
         }
 
         #region helper methods
