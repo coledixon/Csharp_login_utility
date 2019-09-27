@@ -116,8 +116,8 @@ namespace LoginApp.Controllers
                 cmd.Parameters.AddWithValue("@user_id", userId);
                 cmd.Parameters.AddWithValue("@first_name", firstName);
                 cmd.Parameters.AddWithValue("@last_name", lastName);
+                cmd.Parameters.AddWithValue("@password_salt", hash.genSalt());
                 cmd.Parameters.AddWithValue("@password_hash", hash.hashSHA2_512(pass));
-                cmd.Parameters.AddWithValue("@password_salt", hash.hashSalt();)
                 // DEBUG C# hash + SQL salt -- cmd.Parameters.AddWithValue("@password_hash", hash.hashSHA2_512(pass)); // hash pass prior to SQL
                 // output(s)
                 cmd.Parameters.Add("@retval", SqlDbType.Int).Direction = ParameterDirection.Output;
