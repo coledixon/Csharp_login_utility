@@ -18,15 +18,18 @@ namespace LoginApp.Controllers
         loginProps props = new loginProps();
         DataHelpers dthelpers = new DataHelpers();
 
-        // data connth
+        // data connection
         static string dataconnstrng = ConfigurationManager.ConnectionStrings["connstrng"].ConnectionString;
+
+        // sql global(s)
+        static string select = "SELECT * FROM ";
 
         #region data select
         // base select
         public DataTable Select(DataTable obj)
         {
             SqlConnection conn = new SqlConnection(dataconnstrng);
-            StringBuilder query = new StringBuilder("SELECT * FROM ");
+            StringBuilder query = new StringBuilder(select);
 
             query.Append(obj);
 
@@ -48,7 +51,7 @@ namespace LoginApp.Controllers
         public DataTable Select(DataTable obj, string firstName, string lastName)
         {
             SqlConnection conn = new SqlConnection(dataconnstrng);
-            StringBuilder query = new StringBuilder("SELECT * FROM ");
+            StringBuilder query = new StringBuilder(select);
 
             query.Append(obj);
             if (!string.IsNullOrEmpty(firstName) && !string.IsNullOrEmpty(lastName))
@@ -76,7 +79,7 @@ namespace LoginApp.Controllers
         public bool Select(DataTable obj, string userId)
         {
             SqlConnection conn = new SqlConnection(dataconnstrng);
-            StringBuilder query = new StringBuilder("SELECT * FROM ");
+            StringBuilder query = new StringBuilder(select);
 
             query.Append(obj);
             if (!string.IsNullOrEmpty(userId))
