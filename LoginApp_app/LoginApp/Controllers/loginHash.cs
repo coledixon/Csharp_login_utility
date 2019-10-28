@@ -31,5 +31,13 @@ namespace LoginApp.Controllers
 
             return salt.ToString();
         }
+
+        public bool comparePassword(string hash, string salt) {
+            bool valid = false;
+
+            
+
+            return valid;
+        }
     }
 }

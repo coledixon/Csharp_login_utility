@@ -64,8 +64,7 @@ namespace LoginApp
             data.Select(view.vlogin_users);
 
             // set fields to ReadOnly is no users in db
-            if (view.vlogin_users.Rows.Count == 0)
-            {
+            if (view.vlogin_users.Rows.Count == 0) {
                 txtUsername.Enabled = false;
                 txtPassword.Enabled = false;
             }
