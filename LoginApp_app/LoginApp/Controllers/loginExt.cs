@@ -16,6 +16,9 @@ namespace LoginApp.Controllers
 {
     class loginExt
     {
+        // INSTANTIATE CLASS(ES)
+        private loginData data = new loginData();
+
         // main external method class
         public char togglePassChar(char p)
         {
@@ -35,6 +38,12 @@ namespace LoginApp.Controllers
             if (!pass) { MessageBox.Show("password must contain at least one (1) special character"); return pass; }
 
             return pass; // default return
+        }
+
+        public bool doLogin(string user, string pass)
+        {
+            return false; // default placeholder
+            // data.Select();
         }
 
         #region helper methods

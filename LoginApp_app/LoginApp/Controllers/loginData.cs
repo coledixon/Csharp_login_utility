@@ -119,7 +119,7 @@ namespace LoginApp.Controllers
                 cmd.Parameters.AddWithValue("@user_id", userId);
                 cmd.Parameters.AddWithValue("@first_name", firstName);
                 cmd.Parameters.AddWithValue("@last_name", lastName);
-                cmd.Parameters.AddWithValue("@password_salt", hash.genSalt());
+                // cmd.Parameters.AddWithValue("@password_salt", hash.genSalt());
                 cmd.Parameters.AddWithValue("@password_hash", hash.hashSHA2_512(pass));
                 // DEBUG C# hash + SQL salt -- cmd.Parameters.AddWithValue("@password_hash", hash.hashSHA2_512(pass)); // hash pass prior to SQL
                 // output(s)
@@ -154,6 +154,18 @@ namespace LoginApp.Controllers
         {
             // create SQL login session via spcreateSession
             return false;
+        }
+        #endregion
+
+        #region login / logout
+        public bool DoLogin(string userId, string pass)
+        {
+            return false; // default placeholder
+        }
+
+        public bool DoLogout(string userId, string pass)
+        {
+            return false; // default placeholder
         }
         #endregion
     }

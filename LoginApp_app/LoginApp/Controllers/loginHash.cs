@@ -33,11 +33,7 @@ namespace LoginApp.Controllers
         }
 
         public bool comparePassword(string hash, string salt) {
-            bool valid = false;
-
-            
-
-            return valid;
+            return false; // default placeholder
         }
     }
 }
