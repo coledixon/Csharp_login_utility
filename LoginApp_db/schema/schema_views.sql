@@ -17,7 +17,7 @@ GO
 	CREATE VIEW [dbo].[vlogin_users]
 	AS
 
-	SELECT user_id, first_name, last_name, pass_hash, pass_salt
+	SELECT u.user_key, user_id, first_name, last_name, pass_hash, pass_salt
 		FROM user_main u
 			LEFT JOIN pass_main pw (NOLOCK) ON u.user_key = pw.user_key
 	GO

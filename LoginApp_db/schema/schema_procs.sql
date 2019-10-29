@@ -18,13 +18,13 @@ GO
 	@user_id varchar(50),
 	@first_name varchar(15),
 	@last_name varchar(20),
-	@password_salt varchar(MAX), -- salt gen'd in C#
-	@password_hash varchar(MAX), -- hashed in C#
+	-- @password_salt varchar(MAX), -- salt gen'd in SQL
+	@password_hash nvarchar(MAX), -- hash gen'd in C#
 	@retval int = 0 OUTPUT,
 	@errmess varchar(250) = null OUTPUT
 	AS
 
-	DECLARE @user_key int--, @pw_salt UNIQUEIDENTIFIER = NEWID() -- default salt on proc call
+	DECLARE @user_key int, @pw_salt UNIQUEIDENTIFIER = NEWID() -- default salt on proc call
 
 	-- retrieve next userkey in sequence
 	EXEC spgetNextUserKey @user_key OUTPUT, @retval OUTPUT, @errmess OUTPUT
@@ -44,8 +44,8 @@ GO
 		VALUES(@user_key, @user_id, @first_name, @last_name, GETDATE())
 
 		INSERT pass_main (user_key, pass_hash, pass_salt)
-		VALUES (@user_key, @password_hash, @password_salt)
-		-- REMOVED: VALUES (@user_key, HASHBYTES('SHA2_512', (@password_hash+CAST(@password_salt as nvarchar(36)))), @password_salt)
+		VALUES (@user_key, HASHBYTES('SHA2_512', @password_hash + CAST(@pw_salt as nvarchar(36))), @pw_salt)
+		-- REMOVED: VALUES (@user_key, HASHBYTES('SHA2_512', (@password_hash+CAST(@pw_salt as nvarchar(36)))), @pw_salt)
 
 		IF @@ROWCOUNT = 0
 		BEGIN
@@ -69,7 +69,7 @@ GO
 GO
 
 -----
---- UPDATE PROC for updateing an existing user record (from admin console)
+--- UPDATE PROC for updating an existing user record (from admin console)
 -----
 IF OBJECT_ID('dbo.spupdateUser') is not null DROP PROC [dbo].[spupdateUser]
 GO
@@ -146,7 +146,7 @@ GO
 	CREATE PROC [dbo].[spuserLogin]
 	@user_id varchar(50),
 	@user_pass varchar(max),
-	@user_pass_hash varchar(max),
+	@user_pass_hash varchar(max) OUTPUT,
 	@retval int = 0 OUTPUT,
 	@errmess varchar(250) = NULL OUTPUT
 	AS
