@@ -123,7 +123,6 @@ namespace LoginApp.Controllers
                 cmd.Parameters.AddWithValue("@last_name", lastName);
                 cmd.Parameters.AddWithValue("@password_salt", pwSalt);
                 cmd.Parameters.AddWithValue("@password_hash", hash.hashSHA2_512(pass + pwSalt));
-                // DEBUG C# hash + SQL salt -- cmd.Parameters.AddWithValue("@password_hash", hash.hashSHA2_512(pass)); // hash pass prior to SQL
                 // output(s)
                 cmd.Parameters.Add("@retval", SqlDbType.Int).Direction = ParameterDirection.Output;
                 cmd.Parameters.Add("@errmess", SqlDbType.VarChar, 250).Direction = ParameterDirection.Output;
