@@ -18,7 +18,7 @@ GO
 	@user_id varchar(50),
 	@first_name varchar(15),
 	@last_name varchar(20),
-	-- @password_salt varchar(MAX), -- salt gen'd in SQL
+	@password_salt varchar(MAX), -- salt gen'd in C#
 	@password_hash nvarchar(MAX), -- hash gen'd in C#
 	@retval int = 0 OUTPUT,
 	@errmess varchar(250) = null OUTPUT
@@ -44,7 +44,8 @@ GO
 		VALUES(@user_key, @user_id, @first_name, @last_name, GETDATE())
 
 		INSERT pass_main (user_key, pass_hash, pass_salt)
-		VALUES (@user_key, HASHBYTES('SHA2_512', @password_hash + CAST(@pw_salt as nvarchar(36))), @pw_salt)
+		VALUES (@user_key, @password_hash, @password_salt) -- hash / salt C# base
+		-- REMOVED: VALUES (@user_key, HASHBYTES('SHA2_512', @password_hash + CAST(@pw_salt as nvarchar(36))), @pw_salt)
 		-- REMOVED: VALUES (@user_key, HASHBYTES('SHA2_512', (@password_hash+CAST(@pw_salt as nvarchar(36)))), @pw_salt)
 
 		IF @@ROWCOUNT = 0
@@ -178,21 +179,18 @@ GO
 IF OBJECT_ID('dbo.spgetNextUserKey') is not null DROP PROC [dbo].[spgetNextUserKey]
 GO
 
-	
-
 	CREATE PROC [dbo].[spgetNextUserKey]
 	@user_key int = 0 OUTPUT,
 	@retval int = NULL OUTPUT,
 	@errmess varchar(250) = NULL OUTPUT
 	AS
 
-	SELECT @user_key = MAX(COALESCE(user_key,0))
-		FROM user_key_store
+	SELECT 1 FROM user_key_store
 
-	IF (COALESCE(@user_key,0) = 0)
+	IF @@ROWCOUNT = 0
 	BEGIN
 		INSERT user_key_store (user_key)
-		VALUES(1)
+		VALUES (1)
 
 		IF @@ROWCOUNT = 0
 		BEGIN
@@ -204,11 +202,13 @@ GO
 		GOTO SPEND
 	END
 	ELSE BEGIN
-		SELECT @user_key = (@user_key + 1) /* increment key */, @retval = 1
+		SELECT @user_key = MAX(COALESCE(user_key,0)+1) /* increment key */
+			FROM user_key_store
 
 		UPDATE user_key_store -- set new user_key base
 			SET user_key = @user_key
 
+		SET @retval = 1
 		GOTO SPEND
 	END
 
