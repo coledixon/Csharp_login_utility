@@ -24,7 +24,7 @@ GO
 	@errmess varchar(250) = null OUTPUT
 	AS
 
-	DECLARE @user_key int, @pw_salt UNIQUEIDENTIFIER = NEWID() -- default salt on proc call
+	DECLARE @user_key int -- REMOVED: , @pw_salt UNIQUEIDENTIFIER = NEWID() -- default salt on proc call
 
 	-- retrieve next userkey in sequence
 	EXEC spgetNextUserKey @user_key OUTPUT, @retval OUTPUT, @errmess OUTPUT
@@ -79,12 +79,13 @@ GO
 	@user_id varchar(50),
 	@first_name varchar(15),
 	@last_name varchar(20),
-	@password varchar(MAX),
+	@password_salt varchar(MAX), -- salt gen'd in C#
+	@password_hash nvarchar(MAX), -- hash gen'd in C#
 	@retval int = 0 OUTPUT,
 	@errmess varchar(250) = null OUTPUT
 	AS
 
-	DECLARE @pw_salt UNIQUEIDENTIFIER = NEWID() -- default salt on proc call
+	-- REMOVED: DECLARE @pw_salt UNIQUEIDENTIFIER = NEWID() -- default salt on proc call
 
 	SELECT TOP 1 * 
 		FROM vlogin_users
