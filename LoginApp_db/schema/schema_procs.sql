@@ -187,7 +187,7 @@ GO
 
 	SELECT 1 FROM user_key_store
 
-	IF @@ROWCOUNT = 0
+	IF @@ROWCOUNT = 0 -- auto populate default value on first run
 	BEGIN
 		INSERT user_key_store (user_key)
 		VALUES (1)
