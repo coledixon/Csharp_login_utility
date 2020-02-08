@@ -21,56 +21,35 @@ GO
 		DECLARE @contact_id int, @retval int, @errmess varchar(MAX)
 
 		-- create temp table
-		SELECT inserted.* INTO #vcontact_data_all FROM inserted
+		SELECT inserted.* INTO #vlogin_users FROM inserted
 
 		-- handle insert / update logic
-		IF EXISTS(SELECT 1 FROM vcontact_data_all a
-			JOIN inserted i (NOLOCK) ON a.contact_id = i.contact_id)
+		IF EXISTS(SELECT 1 FROM vlogin_users u
+			JOIN inserted i (NOLOCK) ON u.user_key = i.user_key)
 		BEGIN
 			-- update existing records
-			UPDATE exist SET first_name = i.first_name, last_name = i.last_name, upd_date = GETDATE()
+			UPDATE exist SET first_name = i.first_name, last_name = i.last_name
 				FROM inserted i
-				JOIN contact_main exist (NOLOCK) ON exist.contact_id = i.contact_id
+				JOIN user_main exist (NOLOCK) ON exist.user_key = i.user_key
 
-			UPDATE exist SET address = i.address, city = i.city, state = i.state, zip = i.zip
+			UPDATE exist SET pass_hash = i.pass_hash, pass_salt = i.pass_salt
 				FROM inserted i 
-				JOIN contact_address exist (NOLOCK) ON exist.contact_id = i.contact_id
-
-			UPDATE exist SET phone_home = i.phone_home, phone_cell = i.phone_cell, phone_work = i.phone_work
-				FROM inserted i
-				JOIN contact_phone exist (NOLOCK) ON exist.contact_id = i.contact_id
-
-			UPDATE	exist SET email_personal = i.email_personal, email_work = i.email_work
-				FROM inserted i
-				JOIN contact_email exist (NOLOCK) ON exist.contact_id = i.contact_id
-
-			UPDATE exist SET website = i.website, github = i.github
-				FROM inserted i
-				JOIN contact_website exist (NOLOCK) ON exist.contact_id = i.contact_id
+				JOIN pass_main exist (NOLOCK) ON exist.user_key = i.user_key
 			
 			IF @@ROWCOUNT = 0
 			BEGIN
-				SELECT @retval = -1, @errmess = 'NO RECORD(S) UPDATED IN trINSUPD_vcontact_data_all'
+				SELECT @retval = -1, @errmess = 'NO RECORD(S) UPDATED IN trINSUPD_vlogin_users'
 				GOTO ERROR
 			END
 		END
 		ELSE BEGIN
 
 			-- create new records
-			INSERT contact_main
-			SELECT contact_id, first_name, last_name, GETDATE(), null FROM inserted i
+			INSERT user_main
+			SELECT user_id, first_name, last_name FROM inserted i
 
-			INSERT contact_address
-			SELECT contact_id, address, city, state, zip FROM inserted i 
-
-			INSERT contact_phone
-			SELECT contact_id, phone_home, phone_cell, phone_work FROM inserted i 
-
-			INSERT contact_email
-			SELECT contact_id, email_personal, email_work FROM inserted i 
-
-			INSERT contact_website
-			SELECT contact_id, website, github FROM inserted i 
+			INSERT pass_main
+			SELECT pass_hash, pass_salt FROM inserted i 
 
 				SELECT @retval = 1, @errmess = NULL -- assume success if reach this point
 				GOTO SPEND
