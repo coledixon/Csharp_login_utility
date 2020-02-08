@@ -18,7 +18,7 @@ GO
 	INSTEAD OF INSERT, UPDATE
 	AS
 	BEGIN
-		DECLARE @contact_id int, @retval int, @errmess varchar(MAX)
+		DECLARE @retval int, @errmess varchar(MAX)
 
 		-- create temp table
 		SELECT inserted.* INTO #vlogin_users FROM inserted
@@ -69,10 +69,10 @@ GO
 -----
 --- DELETE TRIGGER on vlogin_users
 -----
-IF OBJECT_ID('dbo.trDEL_vcontact_data_all') is not null DROP TRIGGER [dbo].[trDEL_vcontact_data_all] 
+IF OBJECT_ID('dbo.trDEL_vlogin_users') is not null DROP TRIGGER [dbo].[trDEL_vlogin_users] 
 GO
 
-	CREATE TRIGGER [dbo].[trDEL_vcontact_data_all] ON [dbo].[vcontact_data_all]
+	CREATE TRIGGER [dbo].[trDEL_vlogin_users] ON [dbo].[vlogin_users]
 	INSTEAD OF DELETE
 	AS
 	BEGIN
